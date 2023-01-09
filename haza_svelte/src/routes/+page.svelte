@@ -2,6 +2,7 @@
 	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import { Alert } from "flowbite-svelte"
 </script>
 
 <svelte:head>
@@ -24,6 +25,10 @@
 	<h2>
 		try editing <strong>src/routes/+page.svelte</strong>
 	</h2>
+
+	<Alert>
+		<span class="font-medium">Hello Flowbite!</span>
+	</Alert>
 
 	<Counter />
 </section>

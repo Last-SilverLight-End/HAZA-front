@@ -1,21 +1,22 @@
 <script lang="ts">
-	import Header from './Header.svelte';
-	import './styles.css';
+	import "../app.postcss";
+    import Header from './Header.svelte';
+    import './styles.css';
 
-	// 시간 및 IP 표시
-	import { onMount } from "svelte"
-  let currentTime:{utc_datetime: string, client_ip: string}
+    // 시간 및 IP 표시
+    import { onMount } from "svelte"
+    let currentTime:{utc_datetime: string, client_ip: string}
 
-	onMount(async () => {
+    onMount(async () => {
     currentTime = await (await fetch("https://worldtimeapi.org/api/timezone/Asia/Seoul")).json()
   })
 </script>
 
 <div class="app">
-	<Header />
+	<header></header>
 
 	<main>
-		<slot />
+		<slot></slot>
 	</main>
 
 	<footer>
