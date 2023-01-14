@@ -1,0 +1,32 @@
+{
+  "name": "typescript-esm-template",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "A simple typescript template",
+  "exports": "./build/index.js",
+  "typings": "./build/index.d.ts",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf build/",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "lint": "eslint ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "latest",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
+    "eslint": "latest",
+    "rimraf": "^3.0.2",
+    "ts-node": "latest",
+    "typescript": "latest"
+  },
+  "dependencies": {
+    "@types/restify": "^8.5.5",
+    "got": "^12.5.3",
+    "restify": "^10.0.0",
+    "restify-cors-middleware2": "^2.2.0"
+  }
+}

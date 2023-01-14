@@ -14,7 +14,10 @@ const config = {
 	],
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		env: {
+			publicPrefix: "C_",
+		}
 	}
 };
 
