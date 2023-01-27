@@ -1,27 +1,17 @@
 import React from 'react';
 
-import './App.css';
+
+import Footer from './Footer';
+import Header from './Header';
 
 function Home() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          여기를 메인 페이지로 잡고 진행할 예정
-          <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <p>
-          
-        </p>
-      </header>
+      <Header/>
+
+        HAZA 사이트에 오신걸 환영합니다!!
+
+      <Footer/>
     </div>
   );
 }
