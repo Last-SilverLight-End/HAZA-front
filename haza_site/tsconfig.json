@@ -20,8 +20,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "@components/*": [
-        "./components/*"
+      "@Components/*": [
+        "../Components/*"
       ],
       "@styles/*": [
         "./styles/*"
