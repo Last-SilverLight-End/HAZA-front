@@ -26,7 +26,7 @@ export function Header(props:Record<string, never>) {
 
   // 렌더링
   return (
-    <div className="flex flex-row align-items-center">
+    <div className="flex flex-row items-center">
       <Link href="/">
         <Image src="/images/logo.png" alt="logo" width={100} height={100} />
       </Link>
