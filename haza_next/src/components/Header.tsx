@@ -7,19 +7,42 @@ import tempImage from '../images/tempMain.jpg';
 import ShowLogin from './ShowLogin';
 import ShowStatus from './ShowStatus';
 
+import { Button, ButtonGroup } from "@chakra-ui/react"
 
+export function Header(props:Record<string, never>) {
+  const router = useRouter()
 
+  // community 버튼 클릭
+  const onCommunityClick = () => {
+    router.push("/community/communityHome")
+  }
+  // 설문조사 버튼 클릭
+  const onSurveyClick = () => {
+    router.push("/survey/SurveyHome")
+  }
 
-const Header: FC = () => {
+  // check boolean
+  const [check, setCheck] = useState<boolean>(false)
+
+  // 렌더링
+  return (
+    <div className="flex flex-row align-items-center">
+      <Link href="/">
+        <Image src="/images/logo.png" alt="logo" width={100} height={100} />
+      </Link>
+      <Button colorScheme="cyan" onClick={onCommunityClick}>대화 HAZA</Button>
+      <Button colorScheme="orange" onClick={onSurveyClick}>설문조사 HAZA</Button>
+    </div>
+  )
+}
+
+const temp: FC = () => {
 
   const router = useRouter();
   const [check,getCheck] = useState<boolean>(false);
 
   
   // 여기에서 로그인을 하였는지 여부 결정
-  function getLoginCheck(check: boolean): void {
-    
-  }
 
   return (
     <div className={style.header}>
@@ -49,5 +72,3 @@ const Header: FC = () => {
     </div>
   )
 }
-
-export default Header;
