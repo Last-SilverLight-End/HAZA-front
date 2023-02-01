@@ -4,17 +4,15 @@ import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import Image from 'next/image';
 import tempImage from '../images/tempMain.jpg';
-import ShowLogin from './ShowLogin';
-import ShowStatus from './ShowStatus';
 
 
 
 
 
-const Header: FC = () => {
+const ShowStatus: FC = () => {
 
   const router = useRouter();
-  const [check,getCheck] = useState<boolean>(false);
+  const [check,getCheck] = useState(false);
 
   return (
     <div className={style.header}>
@@ -39,11 +37,9 @@ const Header: FC = () => {
       {/* 여기에 로그인 안하였을 시 로그인과 회원 가입 삽입 ,  
       로그인 하였을 시 개인 정보 보여주기*/}
 
-      {
-        check === false ? <ShowLogin/> : <ShowStatus/>
-      };
+
     </div>
   )
 }
 
-export default Header;
+export default ShowStatus;
