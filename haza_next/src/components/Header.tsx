@@ -10,11 +10,16 @@ import ShowStatus from './ShowStatus';
 
 
 
-
 const Header: FC = () => {
 
   const router = useRouter();
   const [check,getCheck] = useState<boolean>(false);
+
+  
+  // 여기에서 로그인을 하였는지 여부 결정
+  function getLoginCheck(check: boolean): void {
+    
+  }
 
   return (
     <div className={style.header}>
@@ -24,7 +29,6 @@ const Header: FC = () => {
           alt="tempMainImage"
           height={50}
           width={100}
-
         />
       </Link>
 

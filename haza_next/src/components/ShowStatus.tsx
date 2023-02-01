@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import Image from 'next/image';
-import tempImage from '../images/tempMain.jpg';
+import tempImage from '../images/tempBackground.jpg';
 
 
 
@@ -15,27 +15,18 @@ const ShowStatus: FC = () => {
   const [check,getCheck] = useState(false);
 
   return (
-    <div className={style.header}>
-      <Link href="/">
-        <Image
-          src={tempImage}
-          alt="tempMainImage"
-          height={50}
-          width={100}
+    // 로그인이 되어 있으므로 로그인 된 정보 보여주기
+    <div>
+      <Image src={tempImage}
+        alt="User_images"
+        height={50}
+        width={100}
+          >
 
-        />
-      </Link>
+      </Image>
+      <button onClick={() => router.push("/Signup")}>정보 수정하기 </button>
+      <button onClick={() => router.push("/Signin")}>로그아웃</button>
 
-      <button className={style.communityHAZA} onClick={() =>
-        router.push("/community/CommunityHome")} >
-        대화 HAZA
-      </button>
-      <button className={style.surveyHAZA} onClick={() =>
-        router.push("/survey/SurveyHome")}>
-        설문 HAZA
-      </button>
-      {/* 여기에 로그인 안하였을 시 로그인과 회원 가입 삽입 ,  
-      로그인 하였을 시 개인 정보 보여주기*/}
 
 
     </div>
