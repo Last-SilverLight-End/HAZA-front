@@ -7,21 +7,21 @@ import tempImage from '../images/tempMain.jpg';
 import ShowLogin from './ShowLogin';
 import ShowStatus from './ShowStatus';
 
-import { Button, ButtonGroup } from "@chakra-ui/react"
+import { Button, ButtonGroup } from "@chakra-ui/react";
 
 export function Header(props:Record<string, never>) {
-  const router = useRouter()
+  const router = useRouter();
 
   // community 버튼 클릭
   const onCommunityClick = () => {
-    router.push("/community/communityHome")
-  }
+    router.push("/community/communityHome");
+  };
   // 설문조사 버튼 클릭
   const onSurveyClick = () => {
-    router.push("/survey/SurveyHome")
-  }
+    router.push("/survey/surveyHome");
+  };
 
-  // check boolean
+  // check boolean , 로그인 체크용
   const [check, setCheck] = useState<boolean>(false)
 
   // 렌더링
@@ -32,6 +32,14 @@ export function Header(props:Record<string, never>) {
       </Link>
       <Button colorScheme="cyan" onClick={onCommunityClick}>대화 HAZA</Button>
       <Button colorScheme="orange" onClick={onSurveyClick}>설문조사 HAZA</Button>
+
+      {/* 여기에 로그인 안하였을 시 로그인과 회원 가입 삽입 ,  
+      로그인 하였을 시 개인 정보 보여주기*/}
+
+      {
+        check === false ? <ShowLogin/> : <ShowStatus/>
+      };
+
     </div>
   )
 }

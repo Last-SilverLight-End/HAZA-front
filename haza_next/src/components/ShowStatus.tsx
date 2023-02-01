@@ -1,5 +1,4 @@
-import style from '@styles/Header.module.css'
-import Link from 'next/link';
+
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import Image from 'next/image';
@@ -12,7 +11,6 @@ import tempImage from '../images/tempBackground.jpg';
 const ShowStatus: FC = () => {
 
   const router = useRouter();
-  const [check,getCheck] = useState(false);
 
   return (
     // 로그인이 되어 있으므로 로그인 된 정보 보여주기
