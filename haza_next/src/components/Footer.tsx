@@ -15,7 +15,7 @@ const Footer: FC = () => {
           <li><a className=" px-2" href="#" /> Q&A </li>
           <li><a className=" px-2"href="#" /> 고객 센터</li>
         </ul>
-        <address className="not-italic pt-2">
+        <address className="decoration-lime-600 not-italic pt-2">
           cg456456@naver.com
         </address>
         <div className="pt-2">
