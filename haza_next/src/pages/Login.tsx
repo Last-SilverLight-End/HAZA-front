@@ -8,18 +8,20 @@ import useSWR from "swr"
 import { Button, ButtonGroup } from "@chakra-ui/react"
 import Space from '@/components/Space'
 import { Logo } from '@/components/Logo'
-import { OAuthProvider, oAuthURI } from '@/libs/oAuth'
+import { getJWTToken, OAuthProvider, oAuthURI, setJWTToken, TokenProp } from '@/libs/oAuth'
 import { useRouter } from 'next/router'
 
 const inter = Inter({ subsets: ['latin'] })
 
 
-export default function Login() {
+export default function Login({ token }:TokenProp) {
   const router = useRouter()
 
   const handleButtonClick = (provider: OAuthProvider) => {
     router.push(oAuthURI(provider))
+    setJWTToken("ABCDE")
   }
+
   return (
     <>
       <Head>
@@ -28,6 +30,8 @@ export default function Login() {
       <main className={styles.main}>
         <div className="flex flex-col content-center">
           <Logo className="w-64 h-64" />
+          <Space className="h-4" />
+          <h1>Token {token}</h1>
           <Space className="h-4" />
           <Button colorScheme="red" onClick={
             () => handleButtonClick(OAuthProvider.GOOGLE)
