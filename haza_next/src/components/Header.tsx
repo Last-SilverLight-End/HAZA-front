@@ -60,6 +60,7 @@ export function Header(props:Record<string, never>) {
             {login ?
               <UserMenu src="/images/profile_example.png" name="사람"
                 onLogout={ () => setLogin(false) }
+                hideName={true}
               /> :
               <LoginMenu onSignin={
                 // () => router.push("/auth/login")
