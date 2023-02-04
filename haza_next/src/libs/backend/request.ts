@@ -1,4 +1,4 @@
-import { BACKEND_TEST } from "./constants"
+import { BACKEND_TEST } from "../constants"
 
 export type ResponseStatus = 200 | 404 | 500
 
@@ -46,7 +46,7 @@ export async function modifyUser(token: string, body: {userId: string, email: st
  * @param params 
  * @returns 
  */
-async function request<T extends Record<string, unknown>>(params: {
+export async function request<T extends Record<string, unknown>>(params: {
   route: string,
   token?: string | null,
   method: "GET" | "POST" | "PUT" | "DELETE",
