@@ -46,12 +46,12 @@ export async function modifyUser(token: string, body: {userId: string, email: st
  * @param params 
  * @returns 
  */
-export async function request<T extends Record<string, unknown>>(params: {
+export async function request<T>(params: {
   route: string,
   token?: string | null,
   method: "GET" | "POST" | "PUT" | "DELETE",
-  body?: Record<string, unknown>,
-}) {
+  body?: unknown,
+}): Promise<T[]> {
   const {route, token, method, body} = params
   const headers = new Headers()
   if (token != null) {
@@ -66,7 +66,16 @@ export async function request<T extends Record<string, unknown>>(params: {
   // 응답이 200 OK인 경우 응답
   const statusCode = response.status
   if (statusCode === 200) {
-    return response.json() as Promise<T>
+    const respData = await response.json() as {count: number, status: 200, data: T | Array<T>}
+    // 데이터가 없으면 [] 반환
+    if (respData.count <= 0) {
+      return []
+    }
+    // 데이터가 1개면 배열로 변환
+    if (!Array.isArray(respData.data)) {
+      return [respData.data]
+    }
+    return respData.data
   }
   // 응답이 200이 아닌데 에러 메시지가 없는 경우
   const errorBody = await response.json() as {errorMessage: string, errorCode: string}
