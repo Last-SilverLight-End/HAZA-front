@@ -13,9 +13,9 @@ export type UserProps = {
 export function User(props:UserProps) {
   return (
     <div className={`flex flex-row items-center gap-x-2 ${props.className ?? ""}`}>
-      <Avatar size="lg" name={props.name} src={props.src} />
+      <Avatar size="md" name={props.name} src={props.src} />
       <Space className="w-0.5" />
-      <Text fontSize="2xl">{props.name}</Text>
+      <Text fontSize="xl">{props.name}</Text>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react" 
+import { Box, Button, Flex, Spacer } from "@chakra-ui/react" 
 
 export interface LoginMenuProps {
   onSignup?: () => unknown;
@@ -7,9 +7,10 @@ export interface LoginMenuProps {
 
 export function LoginMenu(props: LoginMenuProps) {
   return (
-    <div className="flex flex-row items-center gap-x-2">
+    <Flex>
       <Button onClick={props.onSignup} colorScheme="green">회원가입</Button>
+      <Spacer w={4} />
       <Button onClick={props.onSignin}>로그인</Button>
-    </div>
+    </Flex>
   )
 }
