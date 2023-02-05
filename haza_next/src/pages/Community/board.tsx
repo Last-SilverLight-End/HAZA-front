@@ -4,7 +4,7 @@ import { TokenProp } from "@/libs/oAuth";
 import "@toast-ui/editor/dist/toastui-editor.css"
 
 import type { Editor as ToastEditor, EditorProps } from "@toast-ui/react-editor"
-import { AspectRatio, Button, Flex, Grid, GridItem, Select, Text, Textarea } from "@chakra-ui/react"
+import { AspectRatio, Button, Flex, Grid, GridItem, Select, Text, Textarea, Skeleton } from "@chakra-ui/react"
 import dynamic from "next/dynamic"
 
 /**
@@ -21,6 +21,7 @@ export default function Board(props: TokenProp) {
   const editorRef = useRef<ToastEditor>(null)
 
   const [markdown, setMarkdown] = useState("")
+  const [isEditorLoaded, setIsEditorLoaded] = useState(false)
 
   const showContent = () => {
     console.log(editorRef.current)
@@ -58,15 +59,16 @@ export default function Board(props: TokenProp) {
             </Grid>
             <Spacer h={4} />
             <FormLabel>내용</FormLabel>
-            <Box height="30rem">
+            <Skeleton height="30rem" isLoaded={isEditorLoaded}>
               <Editor
                 initialValue="안뇽"
                 previewStyle="vertical"
                 height="100%"
                 initialEditType="wysiwyg"
                 editorRef={editorRef}
+                onLoad={() => setIsEditorLoaded(true)}
               />
-            </Box>
+            </Skeleton>
             <Spacer h={4} />
             <Flex flexDirection="row-reverse" columnGap={4}>
               <Button onClick={showContent}>작성</Button>
