@@ -5,3 +5,8 @@ export type IDType = number
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 export const emptyFunction = () => { };
+
+/**
+ * 페이지 최대 가로 길이
+ */
+export const maxPageWidth = "6xl"

@@ -109,3 +109,9 @@ a {
     color-scheme: dark;
   }
 }
+
+/* Toast UI 글꼴 수정 */
+
+.toastui-editor-main-container .ProseMirror {
+  font-family: sans-serif;
+}

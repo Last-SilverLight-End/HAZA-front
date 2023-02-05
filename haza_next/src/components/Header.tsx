@@ -13,6 +13,7 @@ import { UserMenu } from './header/UserMenu';
 import { LoginMenu } from './header/LoginMenu';
 import Space from './Space';
 import { ChatIcon, EditIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { maxPageWidth } from '@/libs/constants';
 
 export function Header(props:Record<string, never>) {
   const router = useRouter();
@@ -35,7 +36,7 @@ export function Header(props:Record<string, never>) {
   return (
     <header>
       <Center width="100%" borderBottom="1px" borderColor="gray.300" paddingX={3} paddingY={1}>
-        <Flex width="100%" maxWidth="8xl" height="4rem">
+        <Flex width="100%" maxWidth={maxPageWidth} height="4rem">
           {/* 왼쪽 사이드 */}
           <Center>
             <Link href="/">
