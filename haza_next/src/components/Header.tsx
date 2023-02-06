@@ -38,9 +38,9 @@ export function Header(props:Record<string, never>) {
       <Center width="100%" borderBottom="1px" borderColor="gray.300" paddingX={3} paddingY={1}>
         <Flex width="100%" maxWidth={maxPageWidth} height="4rem">
           {/* 왼쪽 사이드 */}
-          <Center>
+          <Center>logo.png
             <Link href="/">
-              <User src="/images/logo.png" name="HAZA" />
+              <User src="/images/logo.png" name="HAZA" height={50} width = {50} />
             </Link>
           </Center>
           {/* 중앙 */}

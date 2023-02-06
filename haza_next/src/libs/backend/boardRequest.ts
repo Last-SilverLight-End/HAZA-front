@@ -62,6 +62,44 @@ interface BoardModifyResult {
   IsModified: boolean
 }
 
+/**
+ * 메인 카테고리 데이터 
+ */
+export interface MainCategory {
+  /**
+   * 메인 카테고리 ID
+   */
+  mainCategoryId : number;
+  /**
+   * 메인 카테고리 이름 ex) Movie, Game
+   */
+  mainCategoryName : string;
+}
+
+export interface MidCategory {
+  midCategoryId : number;
+
+}
+
+/** 
+ * 메인 카테고리를 받아 옵니다.
+ */
+export async function boardMainCategory(token: string , body:Required<MainCategory>)
+{
+    const data = await request<Record<string, ValueType>>({
+    route : `/api/boards?main=${body.mainCategoryName}`,
+    token,
+    method: "GET",
+    body,
+  })
+  return{
+    mainCategoryId : body.mainCategoryId,
+    Genre_Category : body.mainCategoryName,
+  }
+}
+/**
+ * 로그인 구현 (아직 토큰 받아오는 상태를 완성하지 못함)
+ */
 export async function login(token: string, body: {userId: string, email: string, name: string}) {
   throw new Error("TODO")
   return request<{isModifySuccess: boolean}>({
