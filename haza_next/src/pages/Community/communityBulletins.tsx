@@ -8,10 +8,10 @@ export default function Board(props: TokenProp) {
   return (
     <>
       <Header />
-        <div>
+      <div>
 
 
-        </div>
+      </div>
       <Footer />
     </>
   )

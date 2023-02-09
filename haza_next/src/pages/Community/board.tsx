@@ -17,6 +17,9 @@ import { Box, FormControl, FormLabel, FormHelperText, FormErrorMessage, Input, C
 import { maxPageWidth } from "@/libs/constants";
 import { useRef, useState } from "react";
 
+
+
+
 export default function Board(props: TokenProp) {
   const editorRef = useRef<ToastEditor>(null)
 
@@ -77,7 +80,7 @@ export default function Board(props: TokenProp) {
             <Spacer h={4} />
             <Textarea value={markdown} readOnly={true} />
           </FormControl>
-      </Box>
+        </Box>
       </Center>
       <Footer />
     </>

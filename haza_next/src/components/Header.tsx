@@ -15,7 +15,7 @@ import Space from './Space';
 import { ChatIcon, EditIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { maxPageWidth } from '@/libs/constants';
 
-export function Header(props:Record<string, never>) {
+export function Header(props: Record<string, never>) {
   const router = useRouter();
   // 상태들
   // 로그인 체크용
@@ -26,6 +26,11 @@ export function Header(props:Record<string, never>) {
   // community 버튼 클릭
   const onCommunityClick = () => {
     router.push("/community/communityHome");
+  };
+
+  // community 버튼 클릭
+  const writeCommunityBoard = () => {
+    router.push("/community/board");
   };
   // 설문조사 버튼 클릭
   const onSurveyClick = () => {
@@ -40,7 +45,7 @@ export function Header(props:Record<string, never>) {
           {/* 왼쪽 사이드 */}
           <Center>logo.png
             <Link href="/">
-              <User src="/images/logo.png" name="HAZA" height={50} width = {50} />
+              <User src="/images/logo.png" name="HAZA" height={50} width={50} />
             </Link>
           </Center>
           {/* 중앙 */}
@@ -51,8 +56,8 @@ export function Header(props:Record<string, never>) {
           {/* 오른쪽 사이드 */}
           <Center>
             <Flex columnGap={2}>
-              <IconButton colorScheme="cyan" onClick={onCommunityClick} aria-label="대화 HAZA" icon={<ChatIcon />}/>
-              <IconButton colorScheme="orange" onClick={onCommunityClick} aria-label="설문조사 HAZA" icon={<EditIcon />}/>
+              <IconButton colorScheme="cyan" onClick={onCommunityClick} aria-label="커뮤니티 HAZA" icon={<ChatIcon />} />
+              <IconButton colorScheme="orange" onClick={writeCommunityBoard} aria-label="글 작성하기" icon={<EditIcon />} />
               {/* 다크모드 스위치 */}
               <IconButton onClick={toggleColorMode} aria-label="Switch color mode" icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />} />
             </Flex>
@@ -60,7 +65,7 @@ export function Header(props:Record<string, never>) {
             {/* 로그인 여부에 따라 바뀌는 컴포넌트*/}
             {login ?
               <UserMenu src="/images/profile_example.png" name="사람"
-                onLogout={ () => setLogin(false) }
+                onLogout={() => setLogin(false)}
                 hideName={true}
               /> :
               <LoginMenu onSignin={
