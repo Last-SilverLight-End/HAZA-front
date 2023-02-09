@@ -6,7 +6,7 @@ import Image from 'next/image';
 import tempImage from '../images/tempMain.jpg';
 
 
-import { Box, Button, ButtonGroup, Center, Flex, IconButton, Spacer, useColorMode } from "@chakra-ui/react";
+import { Box, Button, ButtonGroup, Center, Flex, IconButton, Spacer, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import { User } from '../header/User';
 import { UserMenu } from '../header/UserMenu';
 import { LoginMenu } from '../header/LoginMenu';
@@ -21,6 +21,11 @@ export function Header(props: Record<string, never>) {
   const [login, setLogin] = useState<boolean>(false)
   // 다크모드
   const { colorMode, toggleColorMode } = useColorMode()
+  // 헤더 배경 색깔
+  // TODO: 색깔 하드코딩 벗어나기
+  const bgColor = useColorModeValue("rgba(255,255,255,0.6)", "rgba(26, 32, 44, 0.6)")
+  // 밑 구분선 색깔
+  const borderColor = useColorModeValue("gray.300", "gray.700")
 
   // community 버튼 클릭
   const onCommunityClick = () => {
@@ -37,9 +42,10 @@ export function Header(props: Record<string, never>) {
   };
 
   // 렌더링
+  // 헤더는 고정에 z50에 블러 처리
   return (
-    <header>
-      <Center width="100%" borderBottom="1px" borderColor="gray.300" paddingX={3} paddingY={1}>
+    <Box as="header" bg={bgColor} className="sticky top-0 z-50 backdrop-blur-lg">
+      <Center width="100%" borderBottom="1px" borderColor={borderColor} paddingX={3} paddingY={1}>
         <Flex width="100%" maxWidth={maxPageWidth} height="4rem">
           {/* 왼쪽 사이드 */}
           <Center>
@@ -77,6 +83,6 @@ export function Header(props: Record<string, never>) {
           </Center>
         </Flex>
       </Center>
-    </header>
+    </Box>
   )
 }
