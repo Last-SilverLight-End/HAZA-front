@@ -4,8 +4,7 @@ import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import Image from 'next/image';
 import tempImage from '../images/tempMain.jpg';
-import ShowLogin from './ShowLogin';
-import ShowStatus from './ShowStatus';
+
 
 import { Box, Button, ButtonGroup, Center, Flex, IconButton, Spacer, useColorMode } from "@chakra-ui/react";
 import { User } from './header/User';

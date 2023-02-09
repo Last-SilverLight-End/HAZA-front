@@ -9,7 +9,7 @@ export type ToastProps = {
   inClosable?: boolean;
 }
 
-export function accountCreated(props: ToastProps) {
+export function makeToast(props: ToastProps) {
   const toast = useToast()
   return (
     <Button

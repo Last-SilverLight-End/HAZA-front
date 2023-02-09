@@ -3,7 +3,7 @@ import { Header } from "@/components/Header";
 import { TokenProp } from "@/libs/oAuth";
 import "@toast-ui/editor/dist/toastui-editor.css"
 
-import type { Editor as ToastEditor, EditorProps } from "@toast-ui/react-editor"
+import type { Editor as ToastEditor, EditorProps } from "@toast-ui/react-editor";
 import { AspectRatio, Button, Flex, Grid, GridItem, Select, Text, Textarea, Skeleton } from "@chakra-ui/react"
 import dynamic from "next/dynamic"
 
