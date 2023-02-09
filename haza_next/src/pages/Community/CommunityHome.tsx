@@ -3,18 +3,18 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import Link from "next/link";
-import { Header } from '@/components/Header';
-import Footer from "@/components/Footer";
+import { Header } from '@/components/generic/Header';
+import Footer from "@/components/generic/Footer";
 const inter = Inter({ subsets: ['latin'] })
 import {
   Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, Box,
 } from '@chakra-ui/react'
 import { useCallback, useMemo, useState } from 'react';
+import { TokenProp } from '@/libs/oAuth';
 
 
-export default function CommunityHome() {
+export default function CommunityHome({ token }: TokenProp) {
   const [boardList, setBoardList] = useState<string>("");
-  const token = useMemo(() => localStorage.getItem("token"), []);
   const loadboardList = useCallback(async () => {
 
     /** TODO

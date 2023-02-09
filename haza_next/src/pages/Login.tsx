@@ -7,7 +7,7 @@ import useSWR from "swr"
 
 import { Button, ButtonGroup } from "@chakra-ui/react"
 import Space from '@/components/Space'
-import { Logo } from '@/components/Logo'
+import { Logo } from '@/components/generic/Logo'
 import { getJWTToken, OAuthProvider, oAuthURI, setJWTToken, TokenProp } from '@/libs/oAuth'
 import { useRouter } from 'next/router'
 

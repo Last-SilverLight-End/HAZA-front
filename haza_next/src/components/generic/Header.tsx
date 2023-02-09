@@ -7,12 +7,12 @@ import tempImage from '../images/tempMain.jpg';
 
 
 import { Box, Button, ButtonGroup, Center, Flex, IconButton, Spacer, useColorMode } from "@chakra-ui/react";
-import { User } from './header/User';
-import { UserMenu } from './header/UserMenu';
-import { LoginMenu } from './header/LoginMenu';
-import Space from './Space';
+import { User } from '../header/User';
+import { UserMenu } from '../header/UserMenu';
+import { LoginMenu } from '../header/LoginMenu';
 import { ChatIcon, EditIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { maxPageWidth } from '@/libs/constants';
+import { Logo } from './Logo';
 
 export function Header(props: Record<string, never>) {
   const router = useRouter();
@@ -42,9 +42,9 @@ export function Header(props: Record<string, never>) {
       <Center width="100%" borderBottom="1px" borderColor="gray.300" paddingX={3} paddingY={1}>
         <Flex width="100%" maxWidth={maxPageWidth} height="4rem">
           {/* 왼쪽 사이드 */}
-          <Center>logo.png
+          <Center>
             <Link href="/">
-              <User src="/images/logo.png" name="HAZA" height={50} width={50} />
+              <Logo width={50} height={50} withTitle={true} />
             </Link>
           </Center>
           {/* 중앙 */}

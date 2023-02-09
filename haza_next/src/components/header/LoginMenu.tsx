@@ -5,6 +5,9 @@ export interface LoginMenuProps {
   onSignin?: () => unknown;
 }
 
+/**
+ * 로그인/회원가입 버튼 메뉴 컴포넌트
+ */
 export function LoginMenu(props: LoginMenuProps) {
   return (
     <Flex>

@@ -1,13 +1,11 @@
 import { Avatar, AvatarBadge, AvatarGroup, Text } from "@chakra-ui/react"
 import Space from "../Space";
-import {Logo} from "../Logo";
+
 export type UserProps = {
   src?: string;
-  name?: string;
+  name: string;
   className?: string;
   hideName?: boolean;
-  width?: number;
-  height?: number;
 }
 
 /**
@@ -18,7 +16,7 @@ export function User(props:UserProps) {
 
   return (
     <div className={`flex flex-row items-center gap-x-2 ${props.className ?? ""}`}>
-      <Logo className={""} width={60} height={50} />
+      <Avatar size="md" name={props.name} src={props.src} />
       {
         hideName ? null : <>
           <Space className="w-0.5" />
