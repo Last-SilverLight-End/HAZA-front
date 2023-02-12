@@ -26,7 +26,7 @@ interface EditorProps {
   initialEditType?: "wysiwyg" | "markdown"
   useCommandShortcut?: boolean
   language?: "ko" | "en"
-  editorRef?:RefObject<ToastEditor> // ref로는 못씀
+  editorRef?: RefObject<ToastEditor> // ref로는 못씀
   onLoad?: (editor: ToastEditor) => void
 }
 
@@ -70,3 +70,4 @@ export default function Editor(props: EditorProps) {
     />
   )
 }
+
