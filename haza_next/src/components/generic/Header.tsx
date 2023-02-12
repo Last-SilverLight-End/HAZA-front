@@ -34,7 +34,7 @@ export function Header(props: Record<string, never>) {
 
   // community 버튼 클릭
   const writeCommunityBoard = () => {
-    router.push("/community/board");
+    router.push("/community/writeBoard");
   };
   // 설문조사 버튼 클릭
   const onSurveyClick = () => {
