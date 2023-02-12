@@ -29,7 +29,7 @@ export function Header(props: Record<string, never>) {
 
   // community 버튼 클릭
   const onCommunityClick = () => {
-    router.push("/community/communityHome");
+    router.push("/community/CommunityHome");
   };
 
   // community 버튼 클릭
