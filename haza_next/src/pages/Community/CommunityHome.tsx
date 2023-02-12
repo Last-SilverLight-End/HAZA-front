@@ -14,6 +14,7 @@ import { TokenProp } from '@/libs/oAuth';
 import style from '@/styles/CommunityMain.module.css';
 import { BoardFrame } from '@/components/generic/ContentFrame';
 import { ListBoardLine } from '@/components/CommunityMainBoxContent';
+import { CommunityHeaderBanner } from '@/components/CommunityHeaderBanner';
 export default function CommunityHome({ token }: TokenProp) {
   const [boardList, setBoardList] = useState<string>("");
   const loadboardList = useCallback(async () => {
@@ -26,6 +27,7 @@ export default function CommunityHome({ token }: TokenProp) {
   return (
     <>
       < Header />
+      <CommunityHeaderBanner/>
       <BoardFrame>
         <ListBoardLine />
       </BoardFrame>
