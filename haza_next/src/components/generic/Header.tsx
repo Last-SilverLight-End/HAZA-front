@@ -46,6 +46,7 @@ export function Header(props: Record<string, never>) {
   return (
     <Box as="header" bg={bgColor} className="sticky top-0 z-50 backdrop-blur-lg">
       <Center width="100%" borderBottom="1px" borderColor={borderColor} paddingX={3} paddingY={1}>
+
         <Flex width="100%" maxWidth={maxPageWidth} height="4rem">
           {/* 왼쪽 사이드 */}
           <Center>
@@ -82,6 +83,7 @@ export function Header(props: Record<string, never>) {
             }
           </Center>
         </Flex>
+
       </Center>
     </Box>
   )

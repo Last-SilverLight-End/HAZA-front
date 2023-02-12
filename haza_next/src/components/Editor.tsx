@@ -30,6 +30,7 @@ interface EditorProps {
   onLoad?: (editor: ToastEditor) => void
 }
 
+
 /**
  * NHN의 Toast-UI Editor
  * CSR 전용 (Server에서 렌더링 불가능)
@@ -70,4 +71,3 @@ export default function Editor(props: EditorProps) {
     />
   )
 }
-

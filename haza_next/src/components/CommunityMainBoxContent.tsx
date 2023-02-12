@@ -1,7 +1,7 @@
 
 import {
   Breadcrumb, BreadcrumbItem, BreadcrumbLink,
-  BreadcrumbSeparator, Box, Grid, GridItem, Link,
+  BreadcrumbSeparator, Box, Grid, GridItem, Link, useColorMode,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { type BoardData, getBoardList } from "../libs/backend/boardRequest";
@@ -11,6 +11,7 @@ import style from "@/styles/CommunityMain.module.css";
 //https://chakra-ui.com/docs/components/breadcrumb/usage
 
 export function ListBoardLine() {
+  const { colorMode } = useColorMode();
   const [data, setData] = useState<BoardData[]>();
 
   // 리스트 요청 해서 받는 값
@@ -83,7 +84,8 @@ export function ListBoardLine() {
 
     //<Grid templateColumns="5fr 1fr 1fr" padding="3px" margin="10px" bg={["red", "green", "blue"][Math.floor(Math.random() * 3)]}>
     //        <Box key={v.boardId} className={style.헌킬바보}>
-
+    //bgGradient={[
+    //  "linear(to-tr, teal.400, yellow.400) ", "linear(to-b, orange.100, purple.300)", "linear(to-t, blue.200, teal.500)"][i % 3]}>
     <>{
       /**
        * 리스트를 차례로 불러온다.
@@ -92,8 +94,7 @@ export function ListBoardLine() {
         <Box
           borderRightRadius="10"
           borderLeftRadius="10"
-          key={v.boardId} bgGradient={[
-            "linear(to-tr, teal.400, yellow.400) ", "linear(to-b, orange.100, purple.300)", "linear(to-t, blue.200, teal.500)"][i % 3]}>
+          key={v.boardId} bg={(colorMode === "dark" ? ["black", "green", "orange"] : ["gray", "lightgreen", "yellow"])[i % 3]}>
           <Grid templateColumns="5fr 1fr 1fr" padding="3px" margin="10px" >
             <GridItem>
               <Link href="/community/communityBulletins">

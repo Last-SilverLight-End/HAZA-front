@@ -1,6 +1,7 @@
 import { projectName } from "@/libs/constants";
 import { Center, Flex, Spacer, Text } from "@chakra-ui/react";
 import Image from "next/image"
+import { ContentFrame } from "./ContentFrame";
 
 /**
  * 로고
@@ -12,17 +13,19 @@ export interface LogoProps {
   height?: number;
   withTitle?: boolean;
 }
-export function Logo(props:LogoProps) {
+export function Logo(props: LogoProps) {
   const withTitle = props.withTitle ?? false
   return (
-    <Flex flexDirection={"row"}>
-      <Image src="/images/logo.png" alt={`${projectName} Logo`} width={props.width ?? 40} height={props.height ?? 40} className={props.className ?? ""} />
-      {withTitle ? (<>
-        <Spacer width={4} />
-        <Center height={props.height ?? 40}>
-          <Text fontSize="xl">{projectName}</Text>
-        </Center>
-      </>) : null}
-    </Flex>
+    <ContentFrame>
+      <Flex flexDirection={"row"}>
+        <Image src="/images/logo.png" alt={`${projectName} Logo`} width={props.width ?? 40} height={props.height ?? 40} className={props.className ?? ""} />
+        {withTitle ? (<>
+          <Spacer width={4} />
+          <Center height={props.height ?? 40}>
+            <Text fontSize="xl">{projectName}</Text>
+          </Center>
+        </>) : null}
+      </Flex>
+    </ContentFrame>
   )
 }
