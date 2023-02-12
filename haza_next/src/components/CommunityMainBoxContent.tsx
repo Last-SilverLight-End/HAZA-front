@@ -1,7 +1,7 @@
 
 import {
   Breadcrumb, BreadcrumbItem, BreadcrumbLink,
-  BreadcrumbSeparator, Box, Grid, GridItem, Link, useColorMode,
+  BreadcrumbSeparator, Box, Grid, GridItem, Link, useColorMode, Center,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { type BoardData, getBoardList } from "../libs/backend/boardRequest";
@@ -23,6 +23,45 @@ export function ListBoardLine() {
  }, []);*/
 
   // sample data 나중에 위 내용을 이용할 것
+  const [tempData2,setTempData2] = useState<BoardData[]>([
+    {
+      boardId: 1,
+      hit: 200,
+      createdDate: new Date("2022-11-01 12:12:12"),
+      modifiedDate: new Date("2022-11-01 13:12:12"),
+      userName: "muangmuang",
+      userEmail: "muangmuangbabo@gmail.com",
+      title: "뫙뫙이 바보 바보",
+      content: "미안하다 이거 보여주려고 어글 ㅗ끌었따.",
+      mainCategory: "Movie",
+      midCategory: "Horror",
+    },
+    {
+      boardId: 2,
+      hit: 400,
+      createdDate: new Date("2023-11-01 12:12:12"),
+      modifiedDate: new Date("2023-11-01 13:12:12"),
+      userName: "muangmuang",
+      userEmail: "muangmuangbabo@gmail.com",
+      title: "뫙뫙이 바보 바보2",
+      content: "미안하다 이거 보여주려고 어글 ㅗ끌었따.",
+      mainCategory: "Movie",
+      midCategory: "Horror",
+    },
+    {
+      boardId: 3,
+      hit: 400,
+      createdDate: new Date("2023-11-01 12:12:12"),
+      modifiedDate: new Date("2023-11-01 13:12:12"),
+      userName: "muangmuang",
+      userEmail: "muangmuangbabo@gmail.com",
+      title: "뫙뫙이 바보 바보3",
+      content: "미안하다 이거 보여주려고 어글 ㅗ끌었따.",
+      mainCategory: "Movie",
+      midCategory: "Horror",
+    },
+    
+  ]);
 
   const [tempData, setTempData] = useState<BoardData[]>([
     {
@@ -60,7 +99,8 @@ export function ListBoardLine() {
       content: "미안하다 이거 보여주려고 어글 ㅗ끌었따.",
       mainCategory: "Movie",
       midCategory: "Horror",
-    }
+    },
+    
   ]);
 
   return (
@@ -91,11 +131,13 @@ export function ListBoardLine() {
        * 리스트를 차례로 불러온다.
        */
       tempData?.map((v, i) => (
+        
         <Box
           borderRightRadius="10"
           borderLeftRadius="10"
+          
           key={v.boardId} bg={(colorMode === "dark" ? ["black", "green", "orange"] : ["gray", "lightgreen", "yellow"])[i % 3]}>
-          <Grid templateColumns="5fr 1fr 1fr" padding="3px" margin="10px" >
+          <Grid templateColumns="5fr 1fr 1fr" padding="3px" margin="10px" alignContent="center" >
             <GridItem>
               <Link href="/community/communityBulletins">
                 {v.title}
@@ -105,6 +147,7 @@ export function ListBoardLine() {
             <GridItem>{v.userName}</GridItem>
           </Grid>
         </Box>
+        
       )
       )}</>
   )
