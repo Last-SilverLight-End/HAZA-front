@@ -1,0 +1,8 @@
+.content {
+  flex: 1;
+}
+
+.contentBox {
+  flex-direction: row;
+  grid-template-rows: 1fr 0.2fr 0.2fr;
+}
