@@ -5,6 +5,8 @@ import { request } from "./request";
 /**
  * 게시글 데이터
  */
+
+
 export interface BoardData extends BasicBoardData {
   /**
    * 게시글 ID
@@ -69,40 +71,39 @@ export interface MainCategory {
   /**
    * 메인 카테고리 ID
    */
-  mainCategoryId : number;
+  mainCategoryId: number;
   /**
    * 메인 카테고리 이름 ex) Movie, Game
    */
-  mainCategoryName : string;
+  mainCategoryName: string;
 }
 
 export interface MidCategory {
-  midCategoryId : number;
+  midCategoryId: number;
 
 }
 
 /** 
  * 메인 카테고리를 받아 옵니다.
  */
-export async function boardMainCategory(token: string , body:Required<MainCategory>)
-{
-    const data = await request<Record<string, ValueType>>({
-    route : `/api/boards?main=${body.mainCategoryName}`,
+export async function boardMainCategory(token: string, body: Required<MainCategory>) {
+  const data = await request<Record<string, ValueType>>({
+    route: `/api/boards?main=${body.mainCategoryName}`,
     token,
     method: "GET",
     body,
   })
-  return{
-    mainCategoryId : body.mainCategoryId,
-    Genre_Category : body.mainCategoryName,
+  return {
+    mainCategoryId: body.mainCategoryId,
+    Genre_Category: body.mainCategoryName,
   }
 }
 /**
  * 로그인 구현 (아직 토큰 받아오는 상태를 완성하지 못함)
  */
-export async function login(token: string, body: {userId: string, email: string, name: string}) {
+export async function login(token: string, body: { userId: string, email: string, name: string }) {
   throw new Error("TODO")
-  return request<{isModifySuccess: boolean}>({
+  return request<{ isModifySuccess: boolean }>({
     route: `/api/users/${body.userId}`,
     token,
     method: "PUT",
@@ -134,7 +135,7 @@ export async function createBoard(token: string, body: BasicBoardData) {
 /**
  * 특정 게시글 정보를 수정합니다.
  */
-export async function modifyBoard(token: string, body: Partial<BasicBoardData> & {boardId: IDType}) {
+export async function modifyBoard(token: string, body: Partial<BasicBoardData> & { boardId: IDType }) {
   const data = await request<BoardModifyResult>({
     route: `/api/boards/${body.boardId}`,
     token,
@@ -159,8 +160,8 @@ export async function modifyBoard(token: string, body: Partial<BasicBoardData> &
 /**
  * 특정 게시글을 삭제합니다.
  */
-export async function deleteBoard(token: string, body: {boardId: IDType}) {
-  const data = await request<{BoardDeleteSuccess: boolean, IsModified: boolean}>({
+export async function deleteBoard(token: string, body: { boardId: IDType }) {
+  const data = await request<{ BoardDeleteSuccess: boolean, IsModified: boolean }>({
     route: `/api/boards/${body.boardId}`,
     token,
     method: "DELETE",
@@ -180,7 +181,7 @@ export async function deleteBoard(token: string, body: {boardId: IDType}) {
 /**
  * 특정 게시글 정보를 가져옵니다.
  */
-export async function getBoard(token: string | null, body: {boardId: IDType}) {
+export async function getBoard(token: string | null, body: { boardId: IDType }) {
   const data = await request<Record<string, ValueType>>({
     route: `/api/boards/${body.boardId}`,
     token,
@@ -192,7 +193,7 @@ export async function getBoard(token: string | null, body: {boardId: IDType}) {
 /**
  * 전체 게시글 정보를 가져옵니다.
  */
-export async function getBoardList(token: string | null, body:Record<string, never> = {}) {
+export async function getBoardList(token: string | null, body: Record<string, never> = {}) {
   const data = await request<Record<string, ValueType>>({
     route: `/api/boards`,
     token,
@@ -206,7 +207,7 @@ export async function getBoardList(token: string | null, body:Record<string, nev
 /**
  * 서버에서 응답한 Board 데이터를 내부 Board 데이터로 변환합니다.
  */
-export function convertBoardToClient(data:Record<string, ValueType>):BoardData {
+export function convertBoardToClient(data: Record<string, ValueType>): BoardData {
   return {
     boardId: forceId(data["board_id"]),
     title: data.title as string,

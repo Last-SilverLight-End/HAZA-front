@@ -11,8 +11,9 @@ import {
 } from '@chakra-ui/react'
 import { useCallback, useMemo, useState } from 'react';
 import { TokenProp } from '@/libs/oAuth';
-
-
+import style from '@/styles/CommunityMain.module.css';
+import { BoardFrame } from '@/components/generic/ContentFrame';
+import { ListBoardLine } from '@/components/CommunityMainBoxContent';
 export default function CommunityHome({ token }: TokenProp) {
   const [boardList, setBoardList] = useState<string>("");
   const loadboardList = useCallback(async () => {
@@ -25,41 +26,9 @@ export default function CommunityHome({ token }: TokenProp) {
   return (
     <>
       < Header />
-      <Box>
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <BreadcrumbLink href=''>List2</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbItem>
-            <BreadcrumbLink href=''>List2</BreadcrumbLink>
-          </BreadcrumbItem>
-          {/* this will generate a span in the ol HTML tag which causes the error: */}
-          {/* <BreadcrumbSeparator /> */}
-        </Breadcrumb>
-
-        {/* preferred solution: */}
-        <Breadcrumb pt='3'>
-          <BreadcrumbItem>
-            <BreadcrumbLink href=''>List2</BreadcrumbLink>
-          </BreadcrumbItem>
-          {/* this creates the exact same HTML as for page 1 */}
-          <BreadcrumbItem>
-            <BreadcrumbLink href=''>List2</BreadcrumbLink>
-            <BreadcrumbSeparator />
-          </BreadcrumbItem>
-        </Breadcrumb>
-
-        <Breadcrumb pt='3'>
-          <BreadcrumbItem>
-            <BreadcrumbLink href=''>List2</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbItem>
-            <BreadcrumbLink href=''>List2</BreadcrumbLink>
-          </BreadcrumbItem>
-          {/* this works too, but creates an additional empty li HTML tag */}
-          <BreadcrumbItem />
-        </Breadcrumb>
-      </Box>
+      <BoardFrame>
+        <ListBoardLine />
+      </BoardFrame>
       <Footer />
     </>
   )
