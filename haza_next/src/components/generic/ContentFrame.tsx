@@ -20,12 +20,14 @@ export function ContentFrame({ children, rowGap }: { 'children'?: ReactNode } & 
 }
 
 /**
- * 페이지 보드 리스트를 감싸는 프레임
+ * 커뮤니티 페이지 보드 리스트를 감싸는 프레임
  */
 export function BoardFrame({ children }: { 'children'?: ReactNode }) {
   return (
-    <Box flex='1'>
+    <Center >
+    <Box flex='1' maxW={maxPageWidth} display="inline-block"> 
       {children}
     </Box>
+    </Center>
   )
 }

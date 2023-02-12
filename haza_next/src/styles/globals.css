@@ -25,6 +25,6 @@ header {
   width: 100vw;
   height: 100vh;
   overflow: auto;
-  display: flex;
+  display: grid;
   flex-direction: column;
 }
