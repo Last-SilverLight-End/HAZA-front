@@ -29,7 +29,7 @@ interface LoginButtonProps {
 	color?: DynamicColor
 	Icon: IconType
 }
-
+// 글쿤
 const LoginButton: React.FC<LoginButtonProps> = (props) => {
 	const { colorMode } = useColorMode()
 	
