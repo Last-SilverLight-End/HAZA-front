@@ -56,6 +56,7 @@ export interface BasicBoardData {
   midCategory: string | null;
 }
 
+
 /**
  * 게시글 생성 및 변경 응답
  */
@@ -81,6 +82,14 @@ export interface MainCategory {
 export interface MidCategory {
   midCategoryId: number;
 
+}
+
+/**
+ * 개개인 칸반 카테고리 이름 정하기
+ */
+
+export interface NameKanban {
+  title : string;
 }
 
 /** 
@@ -199,6 +208,9 @@ export async function getBoardList(token: string | null, body: Record<string, ne
     token,
     method: "GET",
     // body,
+    body : {
+      
+    }
   })
 
   return data.map(convertBoardToClient)
@@ -233,3 +245,6 @@ export function convertBoardToServer(data: Partial<BasicBoardData>) {
     mid_category: data.midCategory,
   }
 }
+/*
+* 칸반보드의 형태를 저장하기 위한 데이터 입니다. (제작중)
+*/
