@@ -13,12 +13,10 @@ type Color = "blue" | "cyan" | "gray" | "green" | "orange" | "pink" | "purple" |
 export function LoginButton(props: {
   icon: ReactElement,
   text: string,
-  lightColor: Color,
-  darkColor: Color,
+  color: Color,
   onClick?: () => unknown,
 }) {
-  const { colorMode } = useColorMode()
-  const { icon, text, darkColor, lightColor } = props
+  const { icon, text, color } = props
 
   return (
     <Button
@@ -28,7 +26,7 @@ export function LoginButton(props: {
       width="500px"
       as="b"
       m={2}
-      colorScheme={colorMode === "dark" ? darkColor : lightColor}
+      colorScheme={color}
       leftIcon={icon}
       onClick={props.onClick}
     >

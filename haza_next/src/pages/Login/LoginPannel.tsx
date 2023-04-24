@@ -6,6 +6,8 @@ import { SiNaver } from "react-icons/si";
 import { LoginButton } from "@/components/login/LoginButton";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { DarkModeButton } from "@/components/generic/DarkModeButton";
+import { OAuthProvider, oAuthURI, setJWTToken, TokenProp } from "@/libs/oAuth";
+import { useRouter } from "next/router";
 
 export interface LoginProps {
   onLogin?: () => void;
@@ -16,40 +18,56 @@ export interface LoginProps {
 
 const iconSize = "25px" // 아이콘 크기
 
-export default function LoginPannel(props: Record<string, never>) {
-
+/**
+ * 로그인 페이지
+ * @param token 현재 토큰
+ */
+export default function LoginPannel({ token }: TokenProp) {
   // 다크모드 제어
   const { colorMode, toggleColorMode } = useColorMode()
+  // Next.js 라우터
+  const router = useRouter()
+  // 로그인 버튼 처리
+  const handleButtonClick = (provider: OAuthProvider) => {
+    router.push(oAuthURI(provider))
+    setJWTToken("ABCDE") // TEST
+  }
 
   return (
     <div className={styles.main}>
       {/* 로고 */}
       <Text as="b" m={5} color="darkgray" fontSize="6xl">HAZA CENTER</Text>
+      {/* 로그인 버튼 */}
       <LoginButton
         icon={<RiKakaoTalkFill size={iconSize} />}
         text="Kakao로 로그인"
-        lightColor="yellow"
-        darkColor="yellow"
+        color="yellow"
+        onClick={() => handleButtonClick(OAuthProvider.KAKAO)}
       />
       <LoginButton
         icon={<FaGithub size={iconSize} />}
         text="Github로 로그인"
-        lightColor="gray"
-        darkColor="gray"
+        color="gray"
+        onClick={() => handleButtonClick(OAuthProvider.GITHUB)}
       />
       <LoginButton
         icon={<FaGoogle size={iconSize} />}
         text="Google로 로그인"
-        lightColor="red"
-        darkColor="red"
+        color="red"
+        onClick={() => handleButtonClick(OAuthProvider.GOOGLE)}
       />
       <LoginButton
         icon={<SiNaver size={iconSize} />}
         text="Naver로 로그인"
-        lightColor="green"
-        darkColor="green"
+        color="green"
+        onClick={() => handleButtonClick(OAuthProvider.NAVER)}
       />
       {/* 다크모드 스위치 */}
+      <Box height={2} />
+      {/* 디버깅용 */}
+      <Text>
+        Token: {token}
+      </Text>
       <Box height={2} />
       <DarkModeButton onClick={toggleColorMode} currentState={colorMode} size="lg" />
     </div>

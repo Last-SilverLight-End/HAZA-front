@@ -10,6 +10,7 @@ export enum OAuthProvider {
   NAVER = "naver",
   GOOGLE = "google",
   KAKAO = "kakao",
+  GITHUB = "github",
 }
 
 export interface TokenProp {
