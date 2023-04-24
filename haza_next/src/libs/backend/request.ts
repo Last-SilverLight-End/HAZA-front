@@ -61,6 +61,8 @@ export async function request<T>(params: {
   const response = await fetch(`${BACKEND_TEST}${route}`, {
     method,
     headers,
+    mode: "cors",
+    credentials: "same-origin",
     body: body == null ? undefined : JSON.stringify(body),
   })
   // 응답이 200 OK인 경우 응답
