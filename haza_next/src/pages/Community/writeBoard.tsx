@@ -121,6 +121,7 @@ export default function WriteBoard(props: TokenProp) {
               height="100%"
               initialEditType="wysiwyg"
               editorRef={editorRef}
+              language="en"
               onLoad={() => setIsEditorLoaded(true)}
             />
           </Skeleton>
