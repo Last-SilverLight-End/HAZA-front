@@ -22,7 +22,7 @@ export function Header(props: Record<string, never>) {
   const [login, setLogin] = useState<boolean>(false)
   // 다크모드
   const { colorMode, toggleColorMode } = useColorMode()
-  // 헤더 배경 색깔
+  // 헤더 배경 색깔 - 굳이...?
   // TODO: 색깔 하드코딩 벗어나기
   const bgColor = useColorModeValue("rgba(255,255,255,0.6)", "rgba(26, 32, 44, 0.6)")
   // 밑 구분선 색깔
