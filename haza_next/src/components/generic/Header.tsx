@@ -13,6 +13,7 @@ import { LoginMenu } from '../header/LoginMenu';
 import { ChatIcon, EditIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { maxPageWidth } from '@/libs/constants';
 import { Logo } from './Logo';
+import { DarkModeButton } from './DarkModeButton';
 
 export function Header(props: Record<string, never>) {
   const router = useRouter();
@@ -65,7 +66,7 @@ export function Header(props: Record<string, never>) {
               <IconButton colorScheme="cyan" onClick={onCommunityClick} aria-label="커뮤니티 HAZA" icon={<ChatIcon />} />
               <IconButton colorScheme="orange" onClick={writeCommunityBoard} aria-label="글 작성하기" icon={<EditIcon />} />
               {/* 다크모드 스위치 */}
-              <IconButton onClick={toggleColorMode} aria-label="Switch color mode" icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />} />
+              <DarkModeButton onClick={toggleColorMode} currentState={colorMode} />
             </Flex>
             <Spacer w={8} />
             {/* 로그인 여부에 따라 바뀌는 컴포넌트*/}
