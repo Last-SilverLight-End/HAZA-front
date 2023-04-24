@@ -204,13 +204,11 @@ export async function getBoard(token: string | null, body: { boardId: IDType }) 
  */
 export async function getBoardList(token: string | null, body: Record<string, never> = {}) {
   const data = await request<Record<string, ValueType>>({
-    route: `/api/boards`,
+    route: `/api/boards/all`,
     token,
     method: "GET",
     // body,
-    body : {
-      
-    }
+ 
   })
 
   return data.map(convertBoardToClient)

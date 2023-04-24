@@ -1,4 +1,4 @@
-export const BACKEND_TEST = "http://localhost:3000" // TEST ONLY
+export const BACKEND_TEST = "http://localhost:8080" // TEST ONLY
 export const BACKEND = "-"
 
 export type IDType = number
