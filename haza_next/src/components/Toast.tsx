@@ -1,4 +1,4 @@
-import { Button, useToast } from '@chakra-ui/react'
+import { Button, Container, useToast } from '@chakra-ui/react'
 
 export type ToastProps = {
 
@@ -10,9 +10,9 @@ export type ToastProps = {
 }
 
 export function makeToast(props: ToastProps) {
-  const toast = useToast()
+  const toast = useToast();
   return (
-    <Button
+    <Container
       onClick={() =>
         toast({
           title: props.title,
@@ -23,7 +23,7 @@ export function makeToast(props: ToastProps) {
         })
       }
     >
-      결과
-    </Button>
+      {props.status}
+    </Container>
   )
 }
