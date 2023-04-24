@@ -1,10 +1,12 @@
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { IconButton } from "@chakra-ui/react";
+import { AdaptiveIconButton } from "../header/AdaptiveIconButton";
 
 interface Props {
   currentState: "dark" | "light",
   size?: "sm" | "md" | "lg" | "xs",
   onClick: () => void,
+  isCompact?: boolean,
 }
 
 /**
@@ -13,11 +15,12 @@ interface Props {
  */
 export function DarkModeButton(props:Props) {
   return (
-    <IconButton
+    <AdaptiveIconButton
       onClick={props.onClick}
-      aria-label="Switch color mode"
+      label="다크 모드 전환"
       icon={props.currentState === "dark" ? <SunIcon /> : <MoonIcon />}
       size={props.size}
+      isCompact={props.isCompact}
       />
   )
 }
