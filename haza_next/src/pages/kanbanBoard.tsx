@@ -21,6 +21,7 @@ const kanbanList = () => {
   const router = useRouter();
   const [dragging, setDragging] = useState<boolean>(false);
   //카드 리스트들 보여주기
+  
   const showMidCardLists = (cardMainCategory: string) => {
     return exampleKanban
       .filter((data) => data.mainCategory === cardMainCategory)
@@ -32,9 +33,10 @@ const kanbanList = () => {
         );
       });
   };
+
   function moveBoard(mainCategory : string, midCategory : string) {
 
-    router.push(`CommunityHome`);
+    router.push(`/community/CommunityHome`);
     //router.push(`CommunityHome?main=${mainCategory}&sub=${midCategory}`);
   }
   

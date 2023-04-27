@@ -93,7 +93,24 @@ export interface NameKanban {
 }
 
 /** 
- * 메인 카테고리를 받아 옵니다.
+ * 전체 메인 카테고리를 받아 옵니다.
+ */
+
+
+export async function boardAllMainCategory(token: string | null, body: Record<string, never> = {}) {
+  const data = await request<Record<string, ValueType>>({
+    route: `/api/categories/mainAll`,
+    token,
+    method: "GET",
+    // body,
+  
+  })
+  console.log(data);
+  return data.map(convertMainCategoryToClient)
+}
+
+/** 
+ * 특정 메인 카테고리를 받아 옵니다.
  */
 export async function boardMainCategory(token: string, body: Required<MainCategory>) {
   const data = await request<Record<string, ValueType>>({
@@ -231,6 +248,21 @@ export function convertBoardToClient(data: Record<string, ValueType>): BoardData
     midCategory: data.mid_category as string | null,
   }
 }
+
+/**
+ * 서버에서 응답한 Maincategory 데이터를 내부 category 데이터로 변환 합니다.
+ */
+
+export function convertMainCategoryToClient(data: Record<string, ValueType>): MainCategory {
+  //console.log(data);
+  //console.log(data.mainCategory_Id);
+ // console.log(data.name);
+  return {
+    mainCategoryId: forceId (data["mainCategory_Id"]),
+    mainCategoryName : data.name as string,
+  }
+}
+
 
 /**
  * 클라이언트의 Board 데이터를 서버 Board 데이터로 변환합니다.

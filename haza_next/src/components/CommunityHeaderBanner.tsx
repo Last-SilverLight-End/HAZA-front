@@ -17,12 +17,10 @@ export function CommunityHeaderBanner () {
 
 
   /**
-   * 메인 카테고리 리스트 header sample data 
-   */
-  
+  * 메인 카테고리 리스트 header sample data 
+  */
 
   //데이터를 찍고 싶었는데 pending 이 떳다
-
   // pending 이 뜬게 아니라 promise 객체인데 pending 상태인 promise 객체가 떳다.
 
  // 하지만 결국 이걸 바로 출력을 못한다 

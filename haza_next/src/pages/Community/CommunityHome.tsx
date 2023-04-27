@@ -9,13 +9,13 @@ const inter = Inter({ subsets: ['latin'] })
 import {
   Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, Box, Stack, Button,
 } from '@chakra-ui/react'
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { TokenProp } from '@/libs/oAuth';
 import style from '@/styles/CommunityMain.module.css';
 import { BoardFrame, ContentFrame } from '@/components/generic/ContentFrame';
 import { ListBoardLine } from '@/components/CommunityMainBoxContent';
 import { CommunityHeaderBanner } from '@/components/CommunityHeaderBanner';
-import { BoardData, MainCategory } from '@/libs/backend/boardRequest';
+import { BoardData, MainCategory , boardAllMainCategory, getBoardList} from '@/libs/backend/boardRequest';
 import { BoardLine } from '@/components/community/BoardLine';
 import { exampleBoardData, exampleCategoryData } from '@/libs/backend/exampledata';
 
@@ -27,7 +27,27 @@ export default function CommunityHome({ token }: TokenProp) {
   // 현재 활성화된 카테고리
   const [activeCatId, setActiveCatId] = useState<number>(1)
 
+    useEffect (()=>{
+
+      async function getAllBoardLists(){
+        const boardLists = await getBoardList(null,);
+        setBoardData(boardLists);
+        
+      }
+
+      async function getAllMainCategoryLists(){
+        const mainCategoryLists = await boardAllMainCategory(null,);
+        console.log(await boardAllMainCategory(null,));
+        setMainCatData(mainCategoryLists);
+       
+      }
+      
+      getAllBoardLists();
+      getAllMainCategoryLists();
+    },[]);
+
   return (
+    
     <>
       <Header />
       <ContentFrame rowGap={4}>
@@ -35,12 +55,18 @@ export default function CommunityHome({ token }: TokenProp) {
         {/* 카테고리 데이터 */}
         <Stack spacing={4} direction="row" align="center">
           {
+
             mainCatData.map((oneData) => {
+              
               return <Button
                 key={oneData.mainCategoryId}
                 size="lg"
                 colorScheme={oneData.mainCategoryId === activeCatId ? "teal" : "gray"}
-                onClick={() => setActiveCatId(oneData.mainCategoryId)}
+                onClick={() =>{
+                  console.log(mainCatData);
+                  console.log(oneData.mainCategoryId,activeCatId)
+                setActiveCatId(oneData.mainCategoryId)
+              } }
               >
                 {oneData.mainCategoryName}
               </Button>
