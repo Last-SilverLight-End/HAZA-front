@@ -205,6 +205,22 @@ export async function deleteBoard(token: string, body: { boardId: IDType }) {
 }
 
 /**
+ * 특정 카테고리 게시글 정보들을 가져옵니다.
+ */
+export async function getMainCategoryBoardList(token: string | null, body :{main_Category_Id : number} ) {
+  const data = await request<Record<string, ValueType>>({
+    route: `/api/boards?main_Category_Id=${body.main_Category_Id}`,
+    token,
+    method: "GET",
+    // body,
+ 
+  })
+
+  return data.map(convertBoardToClient)
+}
+
+
+/**
  * 특정 게시글 정보를 가져옵니다.
  */
 export async function getBoard(token: string | null, body: { boardId: IDType }) {

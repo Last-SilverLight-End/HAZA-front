@@ -15,7 +15,7 @@ import style from '@/styles/CommunityMain.module.css';
 import { BoardFrame, ContentFrame } from '@/components/generic/ContentFrame';
 import { ListBoardLine } from '@/components/CommunityMainBoxContent';
 import { CommunityHeaderBanner } from '@/components/CommunityHeaderBanner';
-import { BoardData, MainCategory , boardAllMainCategory, getBoardList} from '@/libs/backend/boardRequest';
+import { getMainCategoryBoardList,BoardData, MainCategory , boardAllMainCategory, getBoardList} from '@/libs/backend/boardRequest';
 import { BoardLine } from '@/components/community/BoardLine';
 import { exampleBoardData, exampleCategoryData } from '@/libs/backend/exampledata';
 
@@ -28,14 +28,16 @@ export default function CommunityHome({ token }: TokenProp) {
   const [activeCatId, setActiveCatId] = useState<number>(1)
 
     useEffect (()=>{
-
+      // 모든 특정 가테고리 리스트 보드 가져오기
       async function getAllBoardLists(){
-        const boardLists = await getBoardList(null,);
-        setBoardData(boardLists);
+        // 토큰 넣어야 함
+        const maincategoryBoardLists = await getMainCategoryBoardList(null,{main_Category_Id : activeCatId});
+        setBoardData(maincategoryBoardLists);
         
       }
-
+      // 모든 메인 카테고리 리스트 가져오기
       async function getAllMainCategoryLists(){
+        // 토큰 넣어야 함
         const mainCategoryLists = await boardAllMainCategory(null,);
         console.log(await boardAllMainCategory(null,));
         setMainCatData(mainCategoryLists);
@@ -44,7 +46,7 @@ export default function CommunityHome({ token }: TokenProp) {
       
       getAllBoardLists();
       getAllMainCategoryLists();
-    },[]);
+    },[activeCatId]);
 
   return (
     
