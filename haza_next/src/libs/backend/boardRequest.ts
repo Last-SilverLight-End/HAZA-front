@@ -215,7 +215,6 @@ export async function getMainCategoryBoardList(token: string | null, body :{main
     // body,
  
   })
-
   return data.map(convertBoardToClient)
 }
 
@@ -225,7 +224,7 @@ export async function getMainCategoryBoardList(token: string | null, body :{main
  */
 export async function getBoard(token: string | null, body: { boardId: IDType }) {
   const data = await request<Record<string, ValueType>>({
-    route: `/api/boards/${body.boardId}`,
+    route: `/api/boards?id=${body.boardId}`,
     token,
     method: "GET",
   })
@@ -251,6 +250,7 @@ export async function getBoardList(token: string | null, body: Record<string, ne
  * 서버에서 응답한 Board 데이터를 내부 Board 데이터로 변환합니다.
  */
 export function convertBoardToClient(data: Record<string, ValueType>): BoardData {
+  console.log(data);
   return {
     boardId: forceId(data["board_id"]),
     title: data.title as string,

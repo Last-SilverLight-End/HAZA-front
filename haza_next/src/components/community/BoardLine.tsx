@@ -4,7 +4,8 @@ import Link from "next/link";
 
 interface Props {
   data: RequiredBoardData,
-  href: string,
+  href: string | "null",
+  boardId? : number;
 }
 
 type RequiredBoardData = Pick<BoardData, "hit" | "title" | "userName" | "boardId">
@@ -30,7 +31,7 @@ export function BoardLine(props: Props) {
         height={14}
         >
         <GridItem>
-          <Link href={props.href}>
+          <Link href={props.href} as ={props.href}>
             {title}
           </Link>
         </GridItem>

@@ -66,7 +66,7 @@ export default function CommunityHome({ token }: TokenProp) {
                 colorScheme={oneData.mainCategoryId === activeCatId ? "teal" : "gray"}
                 onClick={() =>{
                   console.log(mainCatData);
-                  console.log(oneData.mainCategoryId,activeCatId)
+                  console.log("answer " ,oneData.mainCategoryId,activeCatId)
                 setActiveCatId(oneData.mainCategoryId)
               } }
               >
@@ -78,11 +78,16 @@ export default function CommunityHome({ token }: TokenProp) {
         {/* 보드 데이터 */}
         <div>
           {boardData.map((oneData) => {
-            return (<BoardLine
-              key={oneData.boardId}
-              data={oneData}
-              href="/community/communityBulletins"
-            />)
+            //console.log(oneData);
+            return (
+              <div key={oneData.boardId}>
+                <BoardLine
+                data={oneData}
+                href={`/community/communityBulletins?id=${oneData.boardId}`}
+                
+                />
+              </div>
+              )
           })}
         </div>
       </ContentFrame>
@@ -90,6 +95,9 @@ export default function CommunityHome({ token }: TokenProp) {
     </>
   )
 
+
+
+  // off 된 코드들
   return (
     <>
       < Header />
