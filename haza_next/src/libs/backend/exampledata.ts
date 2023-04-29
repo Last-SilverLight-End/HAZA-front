@@ -3,6 +3,8 @@ import { BoardData, MainCategory } from "./boardRequest"
 /**
  * 임시 게시글 데이터
  */
+
+// 이게 
 export const exampleBoardData: BoardData[] = [
   {
     boardId: 1,

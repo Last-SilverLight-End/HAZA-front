@@ -72,7 +72,7 @@ export interface MainCategory {
   /**
    * 메인 카테고리 ID
    */
-  mainCategoryId: number;
+  mainCategoryId: number; 
   /**
    * 메인 카테고리 이름 ex) Movie, Game
    */
@@ -209,7 +209,7 @@ export async function deleteBoard(token: string, body: { boardId: IDType }) {
  */
 export async function getMainCategoryBoardList(token: string | null, body :{main_Category_Id : number} ) {
   const data = await request<Record<string, ValueType>>({
-    route: `/api/boards?main_Category_Id=${body.main_Category_Id}`,
+    route: `/api/boards?main_category_id=${body.main_Category_Id}`,
     token,
     method: "GET",
     // body,
@@ -260,8 +260,8 @@ export function convertBoardToClient(data: Record<string, ValueType>): BoardData
     modifiedDate: sqlDateToDate(data.modified_date as string),
     userName: data.user_name as string | null,
     userEmail: data.user_email as string | null,
-    mainCategory: data.main_category as string | null,
-    midCategory: data.mid_category as string | null,
+    mainCategory: data.main_category_id as string | null,
+    midCategory: data.mid_category_id as string | null,
   }
 }
 
@@ -274,7 +274,7 @@ export function convertMainCategoryToClient(data: Record<string, ValueType>): Ma
   //console.log(data.mainCategory_Id);
  // console.log(data.name);
   return {
-    mainCategoryId: forceId (data["mainCategory_Id"]),
+    mainCategoryId: forceId (data["main_category_id"]),
     mainCategoryName : data.name as string,
   }
 }
