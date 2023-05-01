@@ -23,7 +23,7 @@ export function ListBoardLine() {
  }, []);*/
 
   // sample data 나중에 위 내용을 이용할 것
-  const [tempData2,setTempData2] = useState<BoardData[]>([
+  const [tempData2, setTempData2] = useState<BoardData[]>([
     {
       boardId: 1,
       hit: 200,
@@ -60,7 +60,7 @@ export function ListBoardLine() {
       mainCategory: "Movie",
       midCategory: "Horror",
     },
-    
+
   ]);
 
   const [tempData, setTempData] = useState<BoardData[]>([
@@ -72,7 +72,7 @@ export function ListBoardLine() {
       userName: "jjoriping",
       userEmail: "jjoripingbabo@gmail.com",
       title: "쪼리핑 바보",
-      content: "미안하다 이거 보여주려고 어글 ㅗ끌었따.",
+      content: "미안하다 이거 보여주려고 어그로 ㄹㅇ끌었따.",
       mainCategory: "Movie",
       midCategory: "Horror",
     },
@@ -84,7 +84,7 @@ export function ListBoardLine() {
       userName: "jjoriping",
       userEmail: "jjoripingbabo@gmail.com",
       title: "쪼리핑 바보2",
-      content: "미안하다 이거 보여주려고 어글 ㅗ끌었따.",
+      content: "미안하다 이거 보여주려고 어그로 ㄹㅇ끌었따.",
       mainCategory: "Movie",
       midCategory: "Horror",
     },
@@ -96,11 +96,11 @@ export function ListBoardLine() {
       userName: "jjoriping",
       userEmail: "jjoripingbabo@gmail.com",
       title: "쪼리핑 바보3",
-      content: "미안하다 이거 보여주려고 어글 ㅗ끌었따.",
+      content: "미안하다 이거 보여주려고 어그로 ㄹㅇ끌었따.",
       mainCategory: "Movie",
       midCategory: "Horror",
     },
-    
+
   ]);
 
   return (
@@ -131,11 +131,11 @@ export function ListBoardLine() {
        * 리스트를 차례로 불러온다.
        */
       tempData?.map((v, i) => (
-        
+
         <Box
           borderRightRadius="10"
           borderLeftRadius="10"
-          
+
           key={v.boardId} bg={(colorMode === "dark" ? ["black", "green", "orange"] : ["gray", "lightgreen", "yellow"])[i % 3]}>
           <Grid templateColumns="5fr 1fr 1fr" padding="3px" margin="10px" alignContent="center" >
             <GridItem>
@@ -147,7 +147,7 @@ export function ListBoardLine() {
             <GridItem>{v.userName}</GridItem>
           </Grid>
         </Box>
-        
+
       )
       )}</>
   )
