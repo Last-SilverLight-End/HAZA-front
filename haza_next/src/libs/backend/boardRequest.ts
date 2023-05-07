@@ -5,8 +5,6 @@ import { request } from "./request";
 /**
  * 게시글 데이터
  */
-
-
 export interface BoardData extends BasicBoardData {
   /**
    * 게시글 ID
@@ -55,14 +53,49 @@ export interface BasicBoardData {
    */
   midCategory: string | null;
 }
-
+/**
+ * 댓글 데이터
+ */
+export interface CommentData{
+  /**
+   * 유저 id
+   */
+  userId : string;
+  /**
+   * 보드 id
+   */
+  boardId : number;
+  /**
+   * 댓글 내용
+   */
+  content : string;
+  /**
+   * 댓글 생성 날짜
+   */
+  createdDate: Date;
+  /**
+   * 댓글 수정 날짜
+   */
+  modifiedDate: Date;
+  /**
+   * 유저 이름 
+   */
+  userName: string | null;
+}
 
 /**
  * 게시글 생성 및 변경 응답
  */
 interface BoardModifyResult {
-  BoardMakeSuccess: boolean
-  IsModified: boolean
+  /**
+   * 성공 여부
+   */
+  BoardMakeSuccess: boolean;
+    /**
+   * 수정 여부
+   */
+  IsModified: boolean;
+  
 }
 
 /**
@@ -80,8 +113,18 @@ export interface MainCategory {
 }
 
 export interface MidCategory {
+  /**
+   * 메인 카테고리 ID
+   */
+  mainCategoryId: number;
+  /**
+   * mid 카테고리 ID
+   */
   midCategoryId: number;
-
+  /**
+   * mid 카테고리 이름
+   */
+  midCategoryName: string;
 }
 
 /**
@@ -90,6 +133,22 @@ export interface MidCategory {
 
 export interface NameKanban {
   title : string;
+}
+
+
+/**
+ * 특정 보드 id 의 댓글들을 받아 옵니다.
+ */
+
+export async function boardComments(token : string | null, body : Required<CommentData>) {
+  const data = await request<Record<string, ValueType>>({
+    route : `api/commnets?board_id=${body.boardId}`,
+    token,
+    method: "GET",
+    //body.
+  })
+  console.log(data);
+  return data.map(convertCommentToClient);
 }
 
 /** 

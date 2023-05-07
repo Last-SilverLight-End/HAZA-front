@@ -81,9 +81,9 @@ export const exampleBoardData: BoardData[] = [
 ]
 
 /**
- * 임시 카테고리 데이터
+ * 임시 mainCategory 카테고리 데이터
  */
-export const exampleCategoryData:MainCategory[] = [
+export const exampleMainCategoryData:MainCategory[] = [
   {
     mainCategoryId : 1,
     mainCategoryName : "Movie",
@@ -96,4 +96,54 @@ export const exampleCategoryData:MainCategory[] = [
     mainCategoryId : 3,
     mainCategoryName : "Animation",
   }
+]
+
+/**
+ * 임시 midCategory 데이터
+ */
+export const  exampleMidCategoryData:MidCategory[] = [
+  {
+    mainCategoryId :1,
+    midCategoryId : 1,
+    midCategoryName : "Action",
+  },
+  {
+    mainCategoryId :1,
+    midCategoryId : 2,
+    midCategoryName : "Horror",
+  },
+  {
+    mainCategoryId :1,
+    midCategoryId : 3,
+    midCategoryName : "Animation",
+  },
+  {
+    mainCategoryId :1,
+    midCategoryId : 4,
+    midCategoryName : "19",
+  },
+  {
+    mainCategoryId :2,
+    midCategoryId : 1,
+    midCategoryName : "rogue",
+  },
+  {
+    mainCategoryId :2,
+    midCategoryId : 2,
+    midCategoryName : "stick",
+  },
+  {
+    mainCategoryId :2,
+    midCategoryId : 3,
+    midCategoryName : "shooting",
+  },
+  {
+    mainCategoryId :3,
+    midCategoryId : 1,
+    midCategoryName : "idol",
+  },{
+    mainCategoryId :3,
+    midCategoryId : 2,
+    midCategoryName : "이세계",
+  },
 ]

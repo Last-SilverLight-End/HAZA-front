@@ -17,13 +17,13 @@ import { ListBoardLine } from '@/components/CommunityMainBoxContent';
 import { CommunityHeaderBanner } from '@/components/CommunityHeaderBanner';
 import { getMainCategoryBoardList,BoardData, MainCategory , boardAllMainCategory, getBoardList} from '@/libs/backend/boardRequest';
 import { BoardLine } from '@/components/community/BoardLine';
-import { exampleBoardData, exampleCategoryData } from '@/libs/backend/exampledata';
+import { exampleBoardData, exampleMainCategoryData } from '@/libs/backend/exampledata';
 
 export default function CommunityHome({ token }: TokenProp) {
   // 보드 데이터
   const [boardData, setBoardData] = useState<BoardData[]>(exampleBoardData)
   // 카테고리 데이터
-  const [mainCatData, setMainCatData] = useState<MainCategory[]>(exampleCategoryData)
+  const [mainCatData, setMainCatData] = useState<MainCategory[]>(exampleMainCategoryData)
   // 현재 활성화된 카테고리
   const [activeCatId, setActiveCatId] = useState<number>(1)
 

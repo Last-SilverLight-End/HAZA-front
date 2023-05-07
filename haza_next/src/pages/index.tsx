@@ -4,27 +4,28 @@ import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import Link from "next/link";
 const inter = Inter({ subsets: ['latin'] })
-import { FC } from 'react';
+import React,{ FC, useCallback, useEffect, useRef, useState } from 'react';
 import { Header } from '@/components/generic/Header';
 import Footer from '@/components/generic/Footer';
 import { ContentFrame } from '@/components/generic/ContentFrame';
 import { Text,Button } from '@chakra-ui/react';
-import  makeToast  from '@/components/Toast';
 import { useRouter } from 'next/router';
 
 
-export default function home() {
+
+function home() {
   
   const router = useRouter();
 
   const goKanbanBoard = () =>{
     router.push("/kanbanBoard")
   }
-  
+
   return (
     <>
+    
       <Header/>
-        <ContentFrame rowGap={4}>
+        <ContentFrame rowGap={4} >
           <h2>Lets HAZA!</h2>
           <Image 
             src="/images/girl_frontline.png"
@@ -32,7 +33,8 @@ export default function home() {
             width={500}
             height={500}
           />
-          <Text fontSize={"2xl"}>
+
+          <Text fontSize={"2xl"} >
             자신이 원하는 모든 대로 할 수 있습니다!
           </Text>
 
@@ -45,6 +47,7 @@ export default function home() {
           <Text fontSize={"2xl"}>
             자 당신의 꿈을 펼쳐보세요!
           </Text>
+         
           <Button onClick = {goKanbanBoard}>
 
           </Button>
@@ -53,3 +56,5 @@ export default function home() {
     </>
   )
 }
+
+export default home;

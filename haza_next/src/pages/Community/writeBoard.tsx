@@ -15,11 +15,11 @@ const Editor = dynamic(() => import("@/components/Editor"), { ssr: false })
 
 import { Box, FormControl, FormLabel, FormHelperText, FormErrorMessage, Input, Center, Spacer, useToast } from "@chakra-ui/react"
 import { maxPageWidth } from "@/libs/constants";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ContentFrame } from "@/components/generic/ContentFrame";
-import { createBoard } from "@/libs/backend/boardRequest";
+import { exampleBoardData, exampleMainCategoryData } from '@/libs/backend/exampledata';
 
-
+import { createBoard,BoardData, MainCategory , boardAllMainCategory, getBoardList, MidCategory} from '@/libs/backend/boardRequest';
 /**
  * 보드에 글쓰기 페이지
  * @param props 
@@ -38,7 +38,8 @@ export default function WriteBoard(props: TokenProp) {
   // 서브 카테고리
   const [subCatName, setSubCatName] = useState("")
   // 근데 카테고리는 어디서 불러오죠...
-
+  const [mainCategory, setMainCategory] = useState<MainCategory[]>(exampleMainCategoryData);
+  const [midCategory, setMidCategory] = useState<MidCategory[]>(exampleMainCategoryData )
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value)
   }
@@ -101,6 +102,14 @@ export default function WriteBoard(props: TokenProp) {
       console.error(err)
     }
   }
+
+  useEffect (() =>{
+    
+    async function getCategories(){
+      const categories = await boardAllMainCategory();
+
+    }
+  })
 
   return (
     <>
