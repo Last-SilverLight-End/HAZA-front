@@ -17,6 +17,7 @@ import { Box, FormControl, FormLabel, FormHelperText, FormErrorMessage, Input, C
 import { maxPageWidth } from "@/libs/constants";
 import { useRef, useState } from "react";
 import { ContentFrame } from "@/components/generic/ContentFrame";
+import { createBoard } from "@/libs/backend/boardRequest";
 
 
 /**
@@ -32,6 +33,12 @@ export default function WriteBoard(props: TokenProp) {
   const [markdown, setMarkdown] = useState("")
   // 글 제목
   const [title, setTitle] = useState("")
+  // 메인 카테고리
+  const [mainCatName, setMainCatName] = useState("")
+  // 서브 카테고리
+  const [subCatName, setSubCatName] = useState("")
+  // 근데 카테고리는 어디서 불러오죠...
+
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value)
   }
@@ -56,7 +63,7 @@ export default function WriteBoard(props: TokenProp) {
   /**
    * 작성 버튼을 눌렀을 때 실행되는 함수
    */
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const toastOptions = {
       status: "error" as const,
       duration: 4000,
@@ -83,6 +90,16 @@ export default function WriteBoard(props: TokenProp) {
     }
     // 내용이 문제가 없으면
     // TODO: 서버에 전송
+    try {
+      await createBoard(props.token, {
+        title,
+        content: markdown,
+        mainCategory: mainCatName,
+        midCategory: subCatName,
+      })
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return (
