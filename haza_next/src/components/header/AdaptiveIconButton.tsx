@@ -1,21 +1,20 @@
-import { Button, IconButton } from "@chakra-ui/react";
-import { ReactElement } from "react";
+import { Color } from '@/types';
+import { Button, IconButton } from '@chakra-ui/react';
+import { ReactElement } from 'react';
 
 interface Props {
-  icon: ReactElement,
-  colorScheme?: "orange" | "whiteAlpha" | "blackAlpha" | "gray" | "red" | "yellow" | "green" | "teal" | "blue" | "cyan" | "purple" | "pink" | "linkedin" | "facebook" | "messenger" | "whatsapp" | "twitter" | "telegram",
-  size?: "sm" | "md" | "lg" | "xs",
-  onClick?: () => unknown,
-  label: string,
-  isCompact?: boolean,
+  icon: ReactElement;
+  colorScheme?: Color;
+  size?: "sm" | "md" | "lg" | "xs";
+  onClick?: () => void;
+  label: string;
+  isCompact?: boolean;
 }
 
 /**
  * 아이콘 버튼(모바일) / 버튼(데스크톱)
- * @param props 
- * @returns 
  */
-export function AdaptiveIconButton(props:Props) {
+export function AdaptiveIconButton(props: Props) {
   if (props.isCompact ?? true) {
     return (
       <IconButton
@@ -25,7 +24,7 @@ export function AdaptiveIconButton(props:Props) {
         colorScheme={props.colorScheme}
         onClick={props.onClick}
         />
-    )
+    );
   } else {
     return (
       <Button
@@ -38,6 +37,6 @@ export function AdaptiveIconButton(props:Props) {
       >
         {props.label}
       </Button>
-    )
+    );
   }
 }

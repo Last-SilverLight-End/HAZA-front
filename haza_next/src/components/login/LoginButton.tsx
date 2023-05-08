@@ -1,26 +1,19 @@
-import { Button, useColorMode } from "@chakra-ui/react"
-import { ReactElement } from "react"
-
-// Chakra-UI 색상
-type Color = "blue" | "cyan" | "gray" | "green" | "orange" | "pink" | "purple" | "red" | "teal" | "yellow" | "whiteAlpha" | "blackAlpha" | "linkedin" | "facebook" | "messenger" | "whatsapp" | "twitter" | "telegram"
+import { Color } from '@/types';
+import { Button } from '@chakra-ui/react';
+import { ReactElement } from 'react';
 
 /**
- * 로그인 버튼 컴포넌트
  * @param props 아이콘 / 글자 / 밝은 테마 색상 / 어두운 테마 색상
- * @returns 컴포넌트
  */
-
-export function LoginButton(props: {
-  icon: ReactElement,
-  text: string,
-  color: Color,
-  onClick?: () => unknown,
+export function LoginButton({ icon, text, color, onClick }: {
+  icon: ReactElement;
+  text: string;
+  color: Color;
+  onClick?: () => void;
 }) {
-  const { icon, text, color } = props
-
   return (
     <Button
-      fontSize="25px" // 글자 크기
+      fontSize="25px"
       size="lg" // 버튼 크기..?
       height="80px"
       width="500px"
@@ -28,9 +21,9 @@ export function LoginButton(props: {
       m={2}
       colorScheme={color}
       leftIcon={icon}
-      onClick={props.onClick}
+      onClick={onClick}
     >
       {text}
     </Button>
-  )
+  );
 }

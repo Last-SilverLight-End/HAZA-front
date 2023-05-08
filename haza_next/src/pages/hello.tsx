@@ -1,4 +1,4 @@
-import { useBearStore } from "@/libs/store"
+import { useBearStore } from '@/libs/store';
 
 export default function hello() {
   return (

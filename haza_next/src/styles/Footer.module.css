@@ -4,7 +4,7 @@
   width: 25%;  
   position: relative;
 }
-.li>a {
+.li > a {
   padding: 5px 15px; 
   display: block; 
   text-align: center; 
@@ -12,12 +12,11 @@
   text-decoration: none;
 }
 
-.li>a::before {
-  content:""; 
+.li > a::before {
+  content: ""; 
   width: 1px; 
   height: 15px; 
-  border-left: 1px 
-  solid #000; 
+  border-left: 1px solid #000; 
   position: absolute; 
   top: 9px; 
   left: -1px; 

@@ -1,29 +1,15 @@
-import { Button, Container, useToast } from '@chakra-ui/react'
+import { Container, useToast, UseToastOptions } from '@chakra-ui/react';
 
-export type ToastProps = {
-
-  title?: string;
-  description?: string;
-  status?: "info" | "warning" | "success" | "error" | "loading" | undefined;
-  duration?: number;
-  inClosable?: boolean;
-}
+export type ToastProps = Partial<{
+  title: string;
+  description: string;
+} & Pick<UseToastOptions, 'duration' | 'status' | 'isClosable'>>;
 
 export function makeToast(props: ToastProps) {
   const toast = useToast();
   return (
-    <Container
-      onClick={() =>
-        toast({
-          title: props.title,
-          description: props.description,
-          status: props.status,
-          duration: props.duration,
-          isClosable: props.inClosable,
-        })
-      }
-    >
+    <Container onClick={() => toast(props)}>
       {props.status}
     </Container>
-  )
+  );
 }

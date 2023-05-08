@@ -1,22 +1,19 @@
-import { IDType } from "./constants";
+import { IdType } from './constants';
 
 export type ValueType = string | number | boolean | null;
-export type FlatJSONType = Record<string, ValueType | ValueType[]>
+export type FlatJSONType = Record<string, ValueType | Array<ValueType>>;
 
 /**
  * 타입 상관 없이 String으로 반환합니다.
  */
-export function forceString(value: string | number | boolean | null): string {
-  if (value === null || value === undefined) {
-    return "";
-  }
-  return value.toString();
+export function forceString(value: ValueType): string {
+  return value?.toString() ?? '';
 }
 
 /**
  * 타입 상관 없이 ID로 반환합니다.
  */
-export function forceId(value: ValueType): IDType {
+export function forceId(value: ValueType): IdType {
   if (value == null) {
     throw new Error(`Invalid ID: ${value}`);
   }
@@ -31,20 +28,5 @@ export function forceId(value: ValueType): IDType {
  * SQL Date를 Date로 변환합니다.
  */
 export function sqlDateToDate(sqlDateString: string): Date {
-  if (sqlDateString.indexOf(" ") < 0) {
-    sqlDateString += " 00:00:00";
-  }
-  const [date, time] = sqlDateString.split(" ");
-  const [year, month, day] = date.split("-");
-  const [hour, minute, second] = time.split(":");
-
-  const valueDate = new Date(Date.UTC(
-    Number(year), Number(month) - 1, Number(day),
-    Number(hour), Number(minute), Number(second),
-  ))
-
-  if (Number.isNaN(valueDate.getTime())) {
-    throw new Error(`Invalid Date: ${sqlDateString}`);
-  }
-  return valueDate;
+  return new Date(Date.parse(sqlDateString));
 }

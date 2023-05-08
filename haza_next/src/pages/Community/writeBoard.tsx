@@ -1,51 +1,38 @@
-import Footer from "@/components/generic/Footer";
-import { Header } from "@/components/generic/Header";
-import { TokenProp } from "@/libs/oAuth";
-import "@toast-ui/editor/dist/toastui-editor.css"
-
-import type { Editor as ToastEditor, EditorProps } from "@toast-ui/react-editor";
-import { AspectRatio, Button, Flex, Grid, GridItem, Select, Text, Textarea, Skeleton } from "@chakra-ui/react"
-import dynamic from "next/dynamic"
+import Footer from '@/components/generic/Footer';
+import { Header } from '@/components/generic/Header';
+import { TokenProp } from '@/libs/oAuth';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import type { Editor as ToastEditor } from '@toast-ui/react-editor';
+import { Button, Flex, Grid, GridItem, Select, Textarea, Skeleton, FormControl, FormLabel, FormHelperText, Input, Spacer, useToast } from '@chakra-ui/react';
+import dynamic from 'next/dynamic';
 
 /**
  * CSR 전용 에디터
  */
-const Editor = dynamic(() => import("@/components/Editor"), { ssr: false })
+const Editor = dynamic(() => import('@/components/Editor'), { ssr: false });
 
-
-import { Box, FormControl, FormLabel, FormHelperText, FormErrorMessage, Input, Center, Spacer, useToast } from "@chakra-ui/react"
-import { maxPageWidth } from "@/libs/constants";
-import { useRef, useState } from "react";
-import { ContentFrame } from "@/components/generic/ContentFrame";
-import { createBoard } from "@/libs/backend/boardRequest";
-
+import { useRef, useState } from 'react';
+import { ContentFrame } from '@/components/generic/ContentFrame';
+import { createBoard } from '@/libs/backend/boardRequest';
 
 /**
- * 보드에 글쓰기 페이지
- * @param props 
- * @returns 
+ * 글쓰기 페이지
  */
 export default function WriteBoard(props: TokenProp) {
   // Markdown 에디터
-  const editorRef = useRef<ToastEditor>(null)
+  const editorRef = useRef<ToastEditor>(null);
 
   // 실제 Markdown 데이터
-  const [markdown, setMarkdown] = useState("")
-  // 글 제목
-  const [title, setTitle] = useState("")
-  // 메인 카테고리
-  const [mainCatName, setMainCatName] = useState("")
-  // 서브 카테고리
-  const [subCatName, setSubCatName] = useState("")
-  // 근데 카테고리는 어디서 불러오죠...
+  const [markdown, setMarkdown] = useState("");
+  const [title, setTitle] = useState("");
+  const [mainCatName, setMainCatName] = useState("");
+  const [subCatName, setSubCatName] = useState("");
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value)
-  }
-  // 에디터 로드 상태
-  const [isEditorLoaded, setIsEditorLoaded] = useState(false)
-  // 토스트
-  const toast = useToast()
+    setTitle(e.target.value);
+  };
+  const [isEditorLoaded, setIsEditorLoaded] = useState(false);
+  const toast = useToast();
 
   /**
    * 마크다운 값 업데이트 (반영)
@@ -53,11 +40,11 @@ export default function WriteBoard(props: TokenProp) {
    */
   const updateMarkdown = () => {
     if (editorRef.current != null) {
-      const content = editorRef.current.getInstance().getMarkdown()
-      setMarkdown(content)
-      return content
+      const content = editorRef.current.getInstance().getMarkdown();
+      setMarkdown(content);
+      return content;
     }
-    return null
+    return null;
   }
 
   /**
@@ -68,25 +55,25 @@ export default function WriteBoard(props: TokenProp) {
       status: "error" as const,
       duration: 4000,
       isClosable: true,
-    }
+    };
     // 제목 검사
     if (title.length <= 0) {
       toast({
         ...toastOptions,
         title: "제목을 입력해주세요",
-      })
-      return
+      });
+      return;
     }
     // 입력값을 마크다으로 컴파일
     // content 값을 써야됨
-    const content = updateMarkdown()
+    const content = updateMarkdown();
     // 내용 검사
     if (content == null || content.length <= 0) {
       toast({
         ...toastOptions,
         title: "내용을 입력해주세요",
-      })
-      return
+      });
+      return;
     }
     // 내용이 문제가 없으면
     // TODO: 서버에 전송
@@ -94,13 +81,13 @@ export default function WriteBoard(props: TokenProp) {
       await createBoard(props.token, {
         title,
         content: markdown,
-        mainCategory: mainCatName,
-        midCategory: subCatName,
-      })
+        mainCategoryName: mainCatName,
+        midCategoryName: subCatName,
+      });
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
-  }
+  };
 
   return (
     <>
@@ -108,8 +95,7 @@ export default function WriteBoard(props: TokenProp) {
       <ContentFrame>
         <FormControl>
           <FormLabel>제목</FormLabel>
-          <Input type="text" placeholder="제에목" value={title} onChange={handleTitleChange
-          } />
+          <Input type="text" placeholder="제에목" value={title} onChange={handleTitleChange} />
           <Spacer h={4} />
           <Grid templateColumns="repeat(2, 1fr)" gap={8}>
             <GridItem>
@@ -153,5 +139,5 @@ export default function WriteBoard(props: TokenProp) {
       </ContentFrame>
       <Footer />
     </>
-  )
+  );
 }

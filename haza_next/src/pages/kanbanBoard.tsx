@@ -1,86 +1,77 @@
-import  { useEffect, useState } from "react";
-import styles from '@/styles/Kanban.module.css'
-import {ListContents,exampleKanban} from "../libs/backend/kanbanRequests";
-import { NameKanban, getBoard } from "@/libs/backend/boardRequest";
-import {Text, ModalFooter,Modal, Button,ModalBody, ModalOverlay,ModalContent,ModalHeader,ModalCloseButton, useDisclosure  } from "@chakra-ui/react" 
-import { useRouter } from "next/router";
-
+import  { useState } from 'react';
+import { exampleKanban } from '../libs/backend/kanbanRequests';
+import { NameKanban } from '@/libs/backend/boardRequest';
+import { Text, ModalFooter, Modal, Button, ModalBody, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, useDisclosure } from '@chakra-ui/react'; 
+import { useRouter } from 'next/router';
 
 // 보드 이름 짓기(나중에 kanban 용도)
-const boardName = (input : string, output : Required<NameKanban>) => {
+const boardName = (input: string, output: NameKanban) => {
   output.title = input;
   return output.title;
 }
 
-
-
-
 // 메인
-const kanbanList = () => {
-
+const KanbanList = () => {
   const router = useRouter();
   const [dragging, setDragging] = useState<boolean>(false);
   //카드 리스트들 보여주기
   
   const showMidCardLists = (cardMainCategory: string) => {
     return exampleKanban
-      .filter((data) => data.mainCategory === cardMainCategory)
-      .map((others,index) => {
-        return (<Button onClick={() => {
-          moveBoard(cardMainCategory,others.midCategory);
-        }}
-        m={2} colorScheme='teal' size='lg' key = {index}>{others.midCategory}</Button>
-        );
-      });
+      .filter((data) => data.mainCategoryId === cardMainCategory)
+      .map((others, index) =>
+        <Button
+          onClick={() => moveBoard(cardMainCategory, others.midCategory)}
+          m={2}
+          colorScheme="teal"
+          size="lg"
+          key={index}
+        >
+          {others.midCategory}
+        </Button>
+      );
   };
 
-  function moveBoard(mainCategory : string, midCategory : string) {
-
-    router.push(`/community/CommunityHome`);
+  function moveBoard(mainCategory: string, midCategory: string) {
+    router.push('/community/CommunityHome');
     //router.push(`CommunityHome?main=${mainCategory}&sub=${midCategory}`);
   }
   
   // 보드 리스트 푸쉬
   
-
   /*useEffect(() =>{
 
   }, []);*/
 
 
-  const handleDragStart = (e : Event, id : number) => {
+  const handleDragStart = (e: Event, id: number) => {
     return 
   }
 
-  const {isOpen, onOpen,onClose} = useDisclosure();
+  const { isOpen, onClose } = useDisclosure();
 
-  const temp = () =>{
-    <div>hello</div>
-    //router.push("/kanbanBoard");
-  }
   return  (
     <>
+      <div>
+        <Text fontSize="5xl">Games</Text>
+        {showMidCardLists('Game')}
+      </div>
+      <div>
+        <Text fontSize="5xl">Movie</Text>
+        <h1>{showMidCardLists('Movie')}</h1>
+      </div>
+      {/*
+        <Button onClick={temp}> + </Button>   
+        
+        
 
-    <div>
-      <Text fontSize='5xl'>Games</Text>
-    {showMidCardLists("Game")}
-    </div>
-    <div>
-    <Text fontSize='5xl'>Movie</Text>
-    <h1>{showMidCardLists("Movie")}</h1>
-    </div>
-  {/*
-    <Button onClick={temp}> + </Button>   
-    
-    
-
-      
-    <div>
-    <Button onClick={onOpen}>Open Modal</Button>
-  </div>*/}
+          
+        <div>
+        <Button onClick={onOpen}>Open Modal</Button>
+      </div>*/}
 
 
-    <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>메뉴 사용법</ModalHeader>
@@ -90,10 +81,10 @@ const kanbanList = () => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={onClose}>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
               취소
             </Button>
-            <Button variant='ghost' onClick={onClose}>확인</Button>
+            <Button variant="ghost" onClick={onClose}>확인</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -101,4 +92,4 @@ const kanbanList = () => {
   );
 };
 
-export default kanbanList;
+export default KanbanList;
