@@ -1,11 +1,9 @@
 import Footer from '@/components/generic/Footer';
 import { Header } from '@/components/generic/Header';
-import { TokenProp } from '@/libs/oAuth';import Footer from '@/components/generic/Footer';
-import { Header } from '@/components/generic/Header';
 import { TokenProp } from '@/libs/oAuth';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import type { Editor as ToastEditor } from '@toast-ui/react-editor';
-import { Box, Button, Center, Flex, Grid, GridItem, Select, Textarea, Skeleton, FormControl, FormLabel, FormHelperText, FormErrorMessage, Input, Spacer, useToast } from '@chakra-ui/react';
+import { Button, Flex, Grid, GridItem, Select, Textarea, Skeleton, FormControl, FormLabel, FormHelperText, Input, Spacer, useToast } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 
 /**
@@ -14,10 +12,9 @@ import dynamic from 'next/dynamic';
 const Editor = dynamic(() => import('@/components/Editor'), { ssr: false });
 
 import { useEffect, useRef, useState } from 'react';
-import { maxPageWidth } from '@/libs/constants';
 import { ContentFrame } from '@/components/generic/ContentFrame';
-import { createBoard, getAllMainCategory } from '@/libs/backend/boardRequest';
-import { exampleBoardData, exampleMainCategoryData, exampleMidCategoryData } from '@/libs/backend/exampledata';
+import { createBoard, getAllMainCategory, MainCategory, MidCategory } from '@/libs/backend/boardRequest';
+import { exampleMainCategoryData, exampleMidCategoryData } from '@/libs/backend/exampledata';
 
 /**
  * 글쓰기 페이지
@@ -95,13 +92,11 @@ export default function WriteBoard(props: TokenProp) {
     }
   };
 
-  useEffect (() =>{
-    
-    async function getCategories(){
-      const categories = await boardAllMainCategory();
-
-    }
-  })
+  useEffect(() => {
+    (async () => {
+      const categories = await getAllMainCategory(null);
+    })();
+  });
 
   return (
     <>

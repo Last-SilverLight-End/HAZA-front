@@ -244,16 +244,16 @@ export async function getBoardList(token: string | null) {
 export function convertBoardToClient(data: Record<string, ValueType>): BoardData {
   console.log(data);
   return {
-    id: forceId(data.board_id),
+    id: forceId(data.id),
     title: data.title as string,
     content: data.content as string,
     hit: Number(data.hit),
-    createdDate: sqlDateToDate(data.created_date as string),
-    modifiedDate: sqlDateToDate(data.modified_date as string),
-    userName: data.user_name as string | null,
-    userEmail: data.user_email as string | null,
-    mainCategoryId: data.main_category_id as number | null,
-    midCategoryId: data.mid_category_id as number | null,
+    createdDate: sqlDateToDate(data.createdDate as string),
+    modifiedDate: sqlDateToDate(data.modifiedDate as string),
+    userName: data.userName as string | null,
+    userEmail: data.userEmail as string | null,
+    mainCategoryId: data.mainCategoryId as number | null,
+    midCategoryId: data.midCategoryId as number | null,
   }
 }
 
@@ -266,7 +266,7 @@ export function convertMainCategoryToClient(data: Record<string, ValueType>): Ma
   //console.log(data.mainCategory_Id);
  // console.log(data.name);
   return {
-    id: forceId(data.main_category_id),
+    id: forceId(data.mainCategoryId),
     name: data.name as string,
   };
 }

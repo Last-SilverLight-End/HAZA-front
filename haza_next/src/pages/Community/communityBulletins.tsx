@@ -1,12 +1,12 @@
 import Footer from '@/components/generic/Footer';
 import { Header } from '@/components/generic/Header';
-import { BoardData, CommentData, MainCategory, getBoard, getMainCategoryBoardList } from '@/libs/backend/boardRequest';
-import { exampleBoardData, exampleMainCategoryData } from '@/libs/backend/exampledata';
+import { BoardData, getBoard } from '@/libs/backend/boardRequest';
+import { exampleBoardData } from '@/libs/backend/exampledata';
 import { TokenProp } from '@/libs/oAuth';
 import { Textarea, Divider, Center, Text, Stack, Box, Heading, Button } from '@chakra-ui/react';
 import style from '@/styles/CommunityMain.module.css';
 import { useRouter } from 'next/router';
-import { MouseEventHandler, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Board(props: TokenProp) {
   const [boardData, setBoardData] = useState<BoardData>(exampleBoardData[0]);
@@ -27,25 +27,24 @@ export default function Board(props: TokenProp) {
   };
 
   // 댓글 실시간 반영
-  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) =>{
+  const handleInputValue = (e: React.ChangeEvent<HTMLTextAreaElement>) =>{
     const inputValue = e.target.value;
     setValue(inputValue);
   };
 
-    useEffect(() => {
-      if (!router.isReady) return;
-      
-      (async () => {
-        console.log(boardLink.id);
+  useEffect(() => {
+    if (!router.isReady) return;
+    
+    (async () => {
+      console.log(boardLink.id);
 
-        const newBoardId = Number(boardLink.id);
-        setBoardId(newBoardId);
-        const specificBoardLists = await getBoard(null, newBoardId);
-        setBoardData(specificBoardLists);
-        console.log(specificBoardLists);
-      })();
-    }, [router.isReady, commentData]);
-
+      const newBoardId = Number(boardLink.id);
+      setBoardId(newBoardId);
+      const specificBoardLists = await getBoard(null, newBoardId);
+      setBoardData(specificBoardLists);
+      console.log(specificBoardLists);
+    })();
+  }, [router.isReady, commentData]);
 
   return (
     <>
@@ -81,7 +80,7 @@ export default function Board(props: TokenProp) {
       {/* 댓글 모음들 */}
       <div className={style.dak}>
         현재 입력 된 값 : {value}
-        <Textarea width="80%" size="lg" placeholder="아 달달소 폭파하고 싶다 댓글 달기" />
+        <Textarea value={value} onChange={handleInputValue} width="80%" size="lg" placeholder="아 달달소 폭파하고 싶다 댓글 달기" />
         <Button colorScheme="blue" m={2} type="submit" onClick={submitContact}>댓글 달기</Button>
       </div>
       <Footer />

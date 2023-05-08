@@ -10,7 +10,6 @@ export default function Home() {
 
   return (
     <>
-    
       <Header/>
         <ContentFrame rowGap={4} >
           <h2>Lets HAZA!</h2>
@@ -33,13 +32,9 @@ export default function Home() {
           <Text fontSize="2xl">
             자 당신의 꿈을 펼쳐보세요!
           </Text>
-          <Button onClick={() => router.push('/kanbanBoard')}>
-
-          </Button>
+          <Button onClick={() => router.push('/kanbanBoard')} />
         </ContentFrame>
       <Footer/>
     </>
   );
 }
-
-export default home;
