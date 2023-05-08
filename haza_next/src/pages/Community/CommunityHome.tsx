@@ -6,11 +6,11 @@ import { TokenProp } from '@/libs/oAuth';
 import { ContentFrame } from '@/components/generic/ContentFrame';
 import { getMainCategoryBoardList, BoardData, MainCategory, getAllMainCategory } from '@/libs/backend/boardRequest';
 import { BoardLine } from '@/components/community/BoardLine';
-import { exampleBoardData, exampleCategoryData } from '@/libs/backend/exampledata';
+import { exampleBoardData, exampleMainCategoryData } from '@/libs/backend/exampledata';
 
 export default function CommunityHome({ token }: TokenProp) {
   const [boardData, setBoardData] = useState<Array<BoardData>>(exampleBoardData);
-  const [mainCatData, setMainCatData] = useState<Array<MainCategory>>(exampleCategoryData);
+  const [mainCatData, setMainCatData] = useState<Array<MainCategory>>(exampleMainCategoryData);
   // 현재 활성화된 카테고리
   const [activeCatId, setActiveCatId] = useState<number>(1);
 

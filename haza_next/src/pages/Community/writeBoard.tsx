@@ -1,9 +1,11 @@
 import Footer from '@/components/generic/Footer';
 import { Header } from '@/components/generic/Header';
+import { TokenProp } from '@/libs/oAuth';import Footer from '@/components/generic/Footer';
+import { Header } from '@/components/generic/Header';
 import { TokenProp } from '@/libs/oAuth';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import type { Editor as ToastEditor } from '@toast-ui/react-editor';
-import { Button, Flex, Grid, GridItem, Select, Textarea, Skeleton, FormControl, FormLabel, FormHelperText, Input, Spacer, useToast } from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Grid, GridItem, Select, Textarea, Skeleton, FormControl, FormLabel, FormHelperText, FormErrorMessage, Input, Spacer, useToast } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 
 /**
@@ -11,9 +13,11 @@ import dynamic from 'next/dynamic';
  */
 const Editor = dynamic(() => import('@/components/Editor'), { ssr: false });
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { maxPageWidth } from '@/libs/constants';
 import { ContentFrame } from '@/components/generic/ContentFrame';
-import { createBoard } from '@/libs/backend/boardRequest';
+import { createBoard, getAllMainCategory } from '@/libs/backend/boardRequest';
+import { exampleBoardData, exampleMainCategoryData, exampleMidCategoryData } from '@/libs/backend/exampledata';
 
 /**
  * 글쓰기 페이지
@@ -27,6 +31,8 @@ export default function WriteBoard(props: TokenProp) {
   const [title, setTitle] = useState("");
   const [mainCatName, setMainCatName] = useState("");
   const [subCatName, setSubCatName] = useState("");
+  const [mainCategory, setMainCategory] = useState<MainCategory[]>(exampleMainCategoryData);
+  const [midCategory, setMidCategory] = useState<MidCategory[]>(exampleMidCategoryData);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -88,6 +94,14 @@ export default function WriteBoard(props: TokenProp) {
       console.error(err);
     }
   };
+
+  useEffect (() =>{
+    
+    async function getCategories(){
+      const categories = await boardAllMainCategory();
+
+    }
+  })
 
   return (
     <>

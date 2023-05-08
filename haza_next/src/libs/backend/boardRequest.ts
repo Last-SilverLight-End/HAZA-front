@@ -37,6 +37,36 @@ export interface RequiredBoardData {
 }
 
 /**
+ * 댓글 데이터
+ */
+export interface CommentData {
+  /**
+   * 유저 id
+   */
+  userId: string;
+  /**
+   * 보드 id
+   */
+  boardId: number;
+  /**
+   * 댓글 내용
+   */
+  content: string;
+  /**
+   * 댓글 생성 날짜
+   */
+  createdDate: Date;
+  /**
+   * 댓글 수정 날짜
+   */
+  modifiedDate: Date;
+  /**
+   * 유저 이름 
+   */
+  userName: string | null;
+}
+
+/**
  * 게시글 생성 및 변경 응답
  */
 interface BoardModifyResult {
@@ -57,6 +87,8 @@ export interface MainCategory {
 
 export interface MidCategory {
   id: IdType;
+  name: string;
+  mainCategoryId: number;
 }
 
 /**
@@ -64,6 +96,20 @@ export interface MidCategory {
  */
 export interface NameKanban {
   title: string;
+}
+
+/**
+ * 특정 보드 id 의 댓글들을 받아 옵니다.
+ */
+export async function getComments(token: string | null, body: CommentData) {
+  const data = await request<Record<string, ValueType>>({
+    route : `api/commnets?board_id=${body.boardId}`,
+    token,
+    method: "GET",
+    //body.
+  })
+  console.log(data);
+  return data.map(convertCommentToClient);
 }
 
 /**

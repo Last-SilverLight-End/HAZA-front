@@ -1,3 +1,17 @@
+.scroll_text {
+  font-size: 5rem;
+  color: black;
+  transition: 1.5s;
+}
+
+.scrolled_text {
+  font-size: 5rem;
+  color: red;
+  transition: 1.5s;
+}
+
+
+
 .main {
   display: flex;
   flex-direction: column;

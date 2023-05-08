@@ -79,9 +79,9 @@ export const exampleBoardData: Array<BoardData> = [
 ];
 
 /**
- * 임시 카테고리 데이터
+ * 임시 mainCategory 카테고리 데이터
  */
-export const exampleCategoryData: Array<MainCategory> = [
+export const exampleMainCategoryData: Array<MainCategory> = [
   {
     id: 1,
     name: "Movie",
@@ -93,5 +93,55 @@ export const exampleCategoryData: Array<MainCategory> = [
   {
     id: 3,
     name: "Animation",
+  },
+];
+
+/**
+ * 임시 midCategory 데이터
+ */
+export const exampleMidCategoryData: Array<MidCategory> = [
+  {
+    mainCategoryId: 1,
+    id: 1,
+    name: "Action",
+  },
+  {
+    mainCategoryId: 1,
+    id: 2,
+    name: "Horror",
+  },
+  {
+    mainCategoryId: 1,
+    id: 3,
+    name: "Animation",
+  },
+  {
+    mainCategoryId: 1,
+    id: 4,
+    name: "19",
+  },
+  {
+    mainCategoryId: 2,
+    id: 1,
+    name: "rogue",
+  },
+  {
+    mainCategoryId: 2,
+    id: 2,
+    name: "stick",
+  },
+  {
+    mainCategoryId: 2,
+    id: 3,
+    name: "shooting",
+  },
+  {
+    mainCategoryId: 3,
+    id: 1,
+    name: "idol",
+  },{
+    mainCategoryId: 3,
+    id: 2,
+    name: "이세계",
   },
 ];

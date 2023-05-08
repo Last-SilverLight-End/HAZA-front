@@ -1,21 +1,36 @@
 import Footer from '@/components/generic/Footer';
 import { Header } from '@/components/generic/Header';
-import { BoardData, getBoard } from '@/libs/backend/boardRequest';
-import { exampleBoardData } from '@/libs/backend/exampledata';
+import { BoardData, CommentData, MainCategory, getBoard, getMainCategoryBoardList } from '@/libs/backend/boardRequest';
+import { exampleBoardData, exampleMainCategoryData } from '@/libs/backend/exampledata';
 import { TokenProp } from '@/libs/oAuth';
 import { Textarea, Divider, Center, Text, Stack, Box, Heading, Button } from '@chakra-ui/react';
 import style from '@/styles/CommunityMain.module.css';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 
 export default function Board(props: TokenProp) {
   const [boardData, setBoardData] = useState<BoardData>(exampleBoardData[0]);
+  const [commentData, setCommentData] = useState<string>("");
   const [boardId, setBoardId] = useState<number>(1);
   // 링크를 통한 라우터에서 값을 받아 옴
   const router = useRouter();
   const boardLink = router.query;
-  console.log(boardData);
-  console.log(boardLink, boardLink.id);
+  
+  const [value, setValue] = useState<string>("");
+  
+  // 제출 및 rerender 
+  const submitContact =  (e: React.SyntheticEvent) => {
+    e.preventDefault();
+
+    alert(`당신이 쓴 댓글은 : ${value} 맞습니까?`);
+    setCommentData(value);
+  };
+
+  // 댓글 실시간 반영
+  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) =>{
+    const inputValue = e.target.value;
+    setValue(inputValue);
+  };
 
     useEffect(() => {
       if (!router.isReady) return;
@@ -29,7 +44,7 @@ export default function Board(props: TokenProp) {
         setBoardData(specificBoardLists);
         console.log(specificBoardLists);
       })();
-    }, [router.isReady]);
+    }, [router.isReady, commentData]);
 
 
   return (
@@ -65,8 +80,9 @@ export default function Board(props: TokenProp) {
       
       {/* 댓글 모음들 */}
       <div className={style.dak}>
+        현재 입력 된 값 : {value}
         <Textarea width="80%" size="lg" placeholder="아 달달소 폭파하고 싶다 댓글 달기" />
-        <Button colorScheme="blue" m={2}>댓글 달기</Button>
+        <Button colorScheme="blue" m={2} type="submit" onClick={submitContact}>댓글 달기</Button>
       </div>
       <Footer />
     </>

@@ -7,11 +7,12 @@ import { useRouter } from 'next/router';
 
 export default function Home() {
   const router = useRouter();
-  
+
   return (
     <>
+    
       <Header/>
-        <ContentFrame rowGap={4}>
+        <ContentFrame rowGap={4} >
           <h2>Lets HAZA!</h2>
           <Image 
             src="/images/girl_frontline.png"
@@ -40,3 +41,5 @@ export default function Home() {
     </>
   );
 }
+
+export default home;
