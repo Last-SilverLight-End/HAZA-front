@@ -1,7 +1,6 @@
-import { Button, DarkMode, LightMode, useColorMode, ColorMode, ThemeTypings, ResponsiveValue } from "@chakra-ui/react"
-import { IconType } from "react-icons"
-import type * as CSS from 'csstype'
-
+import { Button, DarkMode, LightMode, useColorMode, ColorMode, ThemeTypings, ResponsiveValue } from '@chakra-ui/react';
+import { IconType } from 'react-icons';
+import type * as CSS from 'csstype';
 
 // 코드 이해 되고 완벽히 고칠 일이 생기면 사용 할 것 일단은 보류
 
@@ -29,13 +28,12 @@ interface LoginButtonProps {
 	color?: DynamicColor
 	Icon: IconType
 }
-// 글쿤
 const LoginButton: React.FC<LoginButtonProps> = (props) => {
-	const { colorMode } = useColorMode()
+	const { colorMode } = useColorMode();
 	
-	const { Icon } = props
+	const { Icon } = props;
 	
-	const Mode = colorMode === "dark" ? DarkMode : LightMode
+	const Mode = colorMode === "dark" ? DarkMode : LightMode;
 	
 	return (
 		<Mode>
@@ -61,7 +59,7 @@ const LoginButton: React.FC<LoginButtonProps> = (props) => {
 				{props.content}
 			</Button>
     </Mode>
-	)
+	);
 }
 
-export default LoginButton
+export default LoginButton;

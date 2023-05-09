@@ -1,11 +1,10 @@
-import { Box, Button, Flex, Spacer } from "@chakra-ui/react" 
+import { Button, Flex, Spacer } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 export interface LoginMenuProps {
-  onSignup?: () => unknown;
-  onSignin?: () => unknown;
+  onSignup?: () => void;
+  onSignin?: () => void;
 }
-
 
 /**
  * 로그인/회원가입 버튼 메뉴 컴포넌트
@@ -20,5 +19,5 @@ export function LoginMenu(props: LoginMenuProps) {
       <Spacer w={4} />
       <Button onClick={props.onSignin}>로그인</Button>
     </Flex>
-  )
+  );
 }

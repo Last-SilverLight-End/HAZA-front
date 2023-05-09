@@ -1,21 +1,19 @@
-import { useState } from "react";
-
-
+import { useState } from 'react';
 
 // 칸반 리스트 개수
 export type KanbanCnt = number;
 
 // 칸반 이름
 export type KanbanName = {
-  id : string;
-  title : string;
-  KanbanCnt : number;
-}
+  id: string;
+  title: string;
+  kanbanCnt: KanbanCnt;
+};
 
 // 칸반 맵화
 export type KanbanNames = {
-  [key in KanbanCnt] : KanbanName[]; 
-}
+  [K in KanbanCnt]: Array<KanbanName>; 
+};
 
 const KanbanPages = () => {
 
@@ -25,5 +23,5 @@ const KanbanPages = () => {
 
   return (
     <div></div>
-  )
+  );
 }

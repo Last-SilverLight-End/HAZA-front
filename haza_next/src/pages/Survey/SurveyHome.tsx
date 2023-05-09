@@ -1,11 +1,10 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
-import Link from "next/link";
-import {Header} from '@/components/generic/Header';
+import Head from 'next/head';
+import Image from 'next/image';
+import { Inter } from '@next/font/google';
+import styles from '@/styles/Home.module.css';
+import { Header } from '@/components/generic/Header';
 import Footer from '@/components/generic/Footer';
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export default function SurveyHome() {
   return (
@@ -123,5 +122,5 @@ export default function SurveyHome() {
       </main>
       <Footer/>
     </>
-  )
+  );
 }

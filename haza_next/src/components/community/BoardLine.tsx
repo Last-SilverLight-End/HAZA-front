@@ -1,21 +1,21 @@
-import { BoardData } from "@/libs/backend/boardRequest";
-import { Box, Grid, GridItem } from "@chakra-ui/react";
-import Link from "next/link";
+import { BoardData } from '@/libs/backend/boardRequest';
+import { Box, Grid, GridItem } from '@chakra-ui/react';
+import Link from 'next/link';
 
 interface Props {
-  data: RequiredBoardData,
-  href: string | "null",
-  boardId? : number;
+  data: RequiredBoardData;
+  href: string | 'null';
+  boardId?: number;
 }
 
-type RequiredBoardData = Pick<BoardData, "hit" | "title" | "userName" | "boardId">
+type RequiredBoardData = Pick<BoardData, 'hit' | 'title' | 'userName' | 'id'>
 
 /**
  * 게시글 하나 보여주는 컴포넌트 (in List)
  * @param props 데이터
  */
 export function BoardLine(props: Props) {
-  const { hit, title, userName, boardId } = props.data
+  const { hit, title, userName, id: boardId } = props.data
   return (
     <Box
       borderRightRadius="10"

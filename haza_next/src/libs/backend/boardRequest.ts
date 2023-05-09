@@ -1,26 +1,17 @@
-import { IDType } from "../constants";
-import { FlatJSONType, forceId, sqlDateToDate, ValueType } from "../util";
-import { request } from "./request";
+import { IdType } from '../constants';
+import { forceId, sqlDateToDate, ValueType } from '../util';
+import { request } from './request';
 
 /**
  * 게시글 데이터
  */
-export interface BoardData extends BasicBoardData {
+export interface BoardData extends RequiredBoardData {
+  id: IdType;
   /**
-   * 게시글 ID
-   */
-  boardId: IDType;
-  /**
-   * 조회 수
+   * 조회수
    */
   hit: number;
-  /**
-   * 게시글 생성 일자
-   */
   createdDate: Date;
-  /**
-   * 게시글 수정 일자
-   */
   modifiedDate: Date;
   /**
    * 사용자 이름
@@ -35,40 +26,32 @@ export interface BoardData extends BasicBoardData {
 /**
  * 기본 게시글 데이터 (업로드 시 필요)
  */
-export interface BasicBoardData {
-  /**
-   * 게시글 제목
-   */
+export interface RequiredBoardData {
   title: string;
   /**
    * 게시글 내용 (아마도 HTML)
    */
   content: string;
-  /**
-   * 대분류
-   */
-  mainCategory: string | null;
-  /**
-   * 소분류
-   */
-  midCategory: string | null;
+  mainCategoryId: IdType | null;
+  midCategoryId: IdType | null;
 }
+
 /**
  * 댓글 데이터
  */
-export interface CommentData{
+export interface CommentData {
   /**
    * 유저 id
    */
-  userId : string;
+  userId: string;
   /**
    * 보드 id
    */
-  boardId : number;
+  boardId: number;
   /**
    * 댓글 내용
    */
-  content : string;
+  content: string;
   /**
    * 댓글 생성 날짜
    */
@@ -87,60 +70,38 @@ export interface CommentData{
  * 게시글 생성 및 변경 응답
  */
 interface BoardModifyResult {
-  /**
-   * 성공 여부
-   */
-  BoardMakeSuccess: boolean;
-    /**
-   * 수정 여부
-   */
-  IsModified: boolean;
-  
+  success: boolean;
+  modified: boolean;
 }
 
 /**
  * 메인 카테고리 데이터 
  */
 export interface MainCategory {
+  id: IdType; 
   /**
-   * 메인 카테고리 ID
+   * ex) Movie, Game
    */
-  mainCategoryId: number; 
-  /**
-   * 메인 카테고리 이름 ex) Movie, Game
-   */
-  mainCategoryName: string;
+  name: string;
 }
 
 export interface MidCategory {
-  /**
-   * 메인 카테고리 ID
-   */
+  id: IdType;
+  name: string;
   mainCategoryId: number;
-  /**
-   * mid 카테고리 ID
-   */
-  midCategoryId: number;
-  /**
-   * mid 카테고리 이름
-   */
-  midCategoryName: string;
 }
 
 /**
  * 개개인 칸반 카테고리 이름 정하기
  */
-
 export interface NameKanban {
-  title : string;
+  title: string;
 }
-
 
 /**
  * 특정 보드 id 의 댓글들을 받아 옵니다.
  */
-
-export async function boardComments(token : string | null, body : Required<CommentData>) {
+export async function getComments(token: string | null, body: CommentData) {
   const data = await request<Record<string, ValueType>>({
     route : `api/commnets?board_id=${body.boardId}`,
     token,
@@ -151,158 +112,130 @@ export async function boardComments(token : string | null, body : Required<Comme
   return data.map(convertCommentToClient);
 }
 
-/** 
+/**
  * 전체 메인 카테고리를 받아 옵니다.
  */
-
-
-export async function boardAllMainCategory(token: string | null, body: Record<string, never> = {}) {
+export async function getAllMainCategory(token: string | null) {
   const data = await request<Record<string, ValueType>>({
     route: `/api/categories/mainAll`,
     token,
-    method: "GET",
-    // body,
-  
-  })
+    method: 'GET',
+  });
   console.log(data);
-  return data.map(convertMainCategoryToClient)
+  return data.map(convertMainCategoryToClient);
 }
 
-/** 
+/**
  * 특정 메인 카테고리를 받아 옵니다.
  */
-export async function boardMainCategory(token: string, body: Required<MainCategory>) {
+export async function getMainCategory(token: string, body: Required<MainCategory>): Promise<MainCategory> {
   const data = await request<Record<string, ValueType>>({
-    route: `/api/boards?main=${body.mainCategoryName}`,
+    route: `/api/boards?main=${body.name}`,
     token,
-    method: "GET",
+    method: 'GET',
     body,
-  })
+  });
   return {
-    mainCategoryId: body.mainCategoryId,
-    Genre_Category: body.mainCategoryName,
-  }
+    id: body.id,
+    name: body.name,
+  };
 }
 /**
  * 로그인 구현 (아직 토큰 받아오는 상태를 완성하지 못함)
  */
 export async function login(token: string, body: { userId: string, email: string, name: string }) {
-  throw new Error("TODO")
+  throw new Error('TODO');
   return request<{ isModifySuccess: boolean }>({
     route: `/api/users/${body.userId}`,
     token,
-    method: "PUT",
+    method: 'PUT',
   });
 }
 
 /**
  * 게시글을 생성합니다.
  */
-export async function createBoard(token: string, body: BasicBoardData) {
+export async function createBoard(
+  token: string,
+  body:
+    Omit<RequiredBoardData, 'mainCategoryId' | 'midCategoryId'>
+    & Record<'mainCategoryName' | 'midCategoryName', string>
+): Promise<BoardModifyResult> {
   const data = await request<BoardModifyResult>({
-    route: "/api/boards",
+    route: '/api/boards',
     token,
-    method: "POST",
+    method: 'POST',
     body,
-  })
-  return {
-    /**
-     * 게시글 생성 성공 여부
-     */
-    isCreateSuccess: data[0].BoardMakeSuccess,
-    /**
-     * 게시글 수정 여부
-     */
-    isModified: data[0].IsModified,
-  }
+  });
+  return data[0];
 }
 
 /**
  * 특정 게시글 정보를 수정합니다.
  */
-export async function modifyBoard(token: string, body: Partial<BasicBoardData> & { boardId: IDType }) {
+export async function modifyBoard(token: string, body: Partial<RequiredBoardData> & { boardId: IdType }) {
   const data = await request<BoardModifyResult>({
     route: `/api/boards/${body.boardId}`,
     token,
-    method: "POST", // @todo PUT으로 바꾸기
+    method: 'POST', // @todo PUT으로 바꾸기
     body: {
       id: body.boardId,
       ...convertBoardToServer(body),
     },
-  })
-  return {
-    /**
-     * 게시글 수정 성공 여부
-     */
-    isModifySuccess: data[0].BoardMakeSuccess,
-    /**
-     * 게시글 수정 여부
-     */
-    isModified: data[0].IsModified,
-  }
+  });
+  return data[0];
 }
 
 /**
  * 특정 게시글을 삭제합니다.
  */
-export async function deleteBoard(token: string, body: { boardId: IDType }) {
+export async function deleteBoard(token: string, boardId: IdType) {
   const data = await request<{ BoardDeleteSuccess: boolean, IsModified: boolean }>({
-    route: `/api/boards/${body.boardId}`,
+    route: `/api/boards/${boardId}`,
     token,
-    method: "DELETE",
-  })
+    method: 'DELETE',
+  });
   return {
-    /**
-     * 게시글 삭제 성공 여부
-     */
-    isDeleteSuccess: data[0].BoardDeleteSuccess,
-    /**
-     * 게시글 수정 여부
-     */
-    isModified: data[0].IsModified,
+    success: data[0].BoardDeleteSuccess,
+    modified: data[0].IsModified,
   }
 }
 
 /**
  * 특정 카테고리 게시글 정보들을 가져옵니다.
  */
-export async function getMainCategoryBoardList(token: string | null, body :{main_Category_Id : number} ) {
+export async function getMainCategoryBoardList(token: string | null, mainCategoryId: IdType) {
   const data = await request<Record<string, ValueType>>({
-    route: `/api/boards?main_category_id=${body.main_Category_Id}`,
+    route: `/api/boards?main_category_id=${mainCategoryId}`,
     token,
-    method: "GET",
+    method: 'GET',
     // body,
- 
-  })
-  return data.map(convertBoardToClient)
+  });
+  return data.map(convertBoardToClient);
 }
-
 
 /**
  * 특정 게시글 정보를 가져옵니다.
  */
-export async function getBoard(token: string | null, body: { boardId: IDType }) {
+export async function getBoard(token: string | null, boardId: IdType) {
   const data = await request<Record<string, ValueType>>({
-    route: `/api/boards?id=${body.boardId}`,
+    route: `/api/boards?id=${boardId}`,
     token,
-    method: "GET",
+    method: 'GET',
   })
-  return convertBoardToClient(data[0])
+  return convertBoardToClient(data[0]);
 }
 
 /**
  * 전체 게시글 정보를 가져옵니다.
  */
-export async function getBoardList(token: string | null, body: Record<string, never> = {}) {
+export async function getBoardList(token: string | null) {
   const data = await request<Record<string, ValueType>>({
     route: `/api/boards/all`,
     token,
-    method: "GET",
-    // body,
- 
-  })
-
-  return data.map(convertBoardToClient)
+    method: 'GET',
+  });
+  return data.map(convertBoardToClient);
 }
 
 /**
@@ -311,16 +244,16 @@ export async function getBoardList(token: string | null, body: Record<string, ne
 export function convertBoardToClient(data: Record<string, ValueType>): BoardData {
   console.log(data);
   return {
-    boardId: forceId(data["board_id"]),
+    id: forceId(data.id),
     title: data.title as string,
     content: data.content as string,
     hit: Number(data.hit),
-    createdDate: sqlDateToDate(data.created_date as string),
-    modifiedDate: sqlDateToDate(data.modified_date as string),
-    userName: data.user_name as string | null,
-    userEmail: data.user_email as string | null,
-    mainCategory: data.main_category_id as string | null,
-    midCategory: data.mid_category_id as string | null,
+    createdDate: sqlDateToDate(data.createdDate as string),
+    modifiedDate: sqlDateToDate(data.modifiedDate as string),
+    userName: data.userName as string | null,
+    userEmail: data.userEmail as string | null,
+    mainCategoryId: data.mainCategoryId as number | null,
+    midCategoryId: data.midCategoryId as number | null,
   }
 }
 
@@ -333,23 +266,19 @@ export function convertMainCategoryToClient(data: Record<string, ValueType>): Ma
   //console.log(data.mainCategory_Id);
  // console.log(data.name);
   return {
-    mainCategoryId: forceId (data["main_category_id"]),
-    mainCategoryName : data.name as string,
-  }
+    id: forceId(data.mainCategoryId),
+    name: data.name as string,
+  };
 }
-
 
 /**
  * 클라이언트의 Board 데이터를 서버 Board 데이터로 변환합니다.
  */
-export function convertBoardToServer(data: Partial<BasicBoardData>) {
+export function convertBoardToServer(data: Partial<RequiredBoardData>) {
   return {
     title: data.title,
     content: data.content,
-    main_category: data.mainCategory,
-    mid_category: data.midCategory,
-  }
+    main_category: data.mainCategoryId,
+    mid_category: data.midCategoryId,
+  };
 }
-/*
-* 칸반보드의 형태를 저장하기 위한 데이터 입니다. (제작중)
-*/

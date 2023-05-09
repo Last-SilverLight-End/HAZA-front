@@ -1,20 +1,14 @@
-/**
- * Chakra UI Theme
- */
+// Chakra UI Theme
 
-import { extendTheme, ThemeConfig } from "@chakra-ui/react";
+import { extendTheme, ThemeConfig } from '@chakra-ui/react';
 
 // Color mode config
 const config: ThemeConfig = {
-  initialColorMode: "system",
+  initialColorMode: 'system',
   useSystemColorMode: true,
-  
-}
+};
 
 // Extend the theme
+const theme = extendTheme({ config }) as { config: ThemeConfig };
 
-
-
-const theme = extendTheme({ config}) as { config: ThemeConfig }
-
-export default theme
+export default theme;
