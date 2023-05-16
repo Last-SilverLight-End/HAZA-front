@@ -37,20 +37,17 @@ export async function getAllMainCategory(token: string | null) {
 
 
 /**
- * 특정 메인 카테고리를 받아 옵니다.
+ * 특정 메인 카테고리 내 미드 카테고리 전체를 받아 옵니다.
  */
-export async function getMainCategory(token: string, body: Required<MainCategory>): Promise<MainCategory> {
+export async function getMidCategory(token: string | null, mainCategoryId : number)  {
   const data = await request<Record<string, ValueType>>({
-    route: `/api/boards?main=${body.name}`,
+    route: `/api/boards?main=${mainCategoryId}`,
     token,
     method: 'GET',
-    body,
+    //body,
   });
   console.log(data);
-  return {
-    id: body.id,
-    name: body.name,
-  };
+  return data.map(convertMidCategoryToClient);
 }
 
 /**
@@ -64,5 +61,20 @@ export function convertMainCategoryToClient(data: Record<string, ValueType>): Ma
   return {
     id: forceId(data.mainCategoryId),
     name: data.name as string,
+  };
+}
+
+/**
+ * 서버에서 응답한 Midcategory 데이터를 내부 category 데이터로 변환 합니다.
+ */
+
+export function convertMidCategoryToClient(data: Record<string, ValueType>): MidCategory {
+  //console.log(data);
+  //console.log(data.mainCategory_Id);
+ // console.log(data.name);
+  return {
+    id: forceId(data.midCategoryId),
+    name: data.name as string,
+    mainCategoryId : data.parentCategoryId as number
   };
 }

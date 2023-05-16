@@ -15,7 +15,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ContentFrame } from '@/components/generic/ContentFrame';
 import { createBoard} from '@/libs/backend/boardRequest';
 import { exampleMainCategoryData, exampleMidCategoryData } from '@/libs/backend/exampledata';
-import { MainCategory, MidCategory, getAllMainCategory } from '@/libs/backend/categoryRequest';
+import { MainCategory, MidCategory, getAllMainCategory, getMidCategory } from '@/libs/backend/categoryRequest';
 
 /**
  * 글쓰기 페이지
@@ -27,8 +27,17 @@ export default function WriteBoard(props: TokenProp) {
   // 실제 Markdown 데이터
   const [markdown, setMarkdown] = useState("");
   const [title, setTitle] = useState("");
-  const [mainCatName, setMainCatName] = useState("");
-  const [subCatName, setSubCatName] = useState("");
+
+  const [selectMainCate, setSelectMainCate] = useState<MainCategory>({
+    id: 0,
+    name: "선택하세요",
+  });
+
+  const [selectMidCate, setSelectMidCate] = useState<MidCategory>({
+    id : 0,
+    name : "선택하세요",
+    mainCategoryId : 0,
+    });
   const [mainCategory, setMainCategory] = useState<MainCategory[]>(exampleMainCategoryData);
   const [midCategory, setMidCategory] = useState<MidCategory[]>(exampleMidCategoryData);
 
@@ -87,17 +96,17 @@ export default function WriteBoard(props: TokenProp) {
       await createBoard(props?.token, {
         title,
         content: markdown,
-        mainCategoryName: mainCatName,
-        midCategoryName: subCatName,
+        mainCategoryName: selectMainCate.name,
+        midCategoryName: selectMidCate.name,
       });
     } catch (err) {
       console.error(err);
     }
   };
 
-  // 메인 카테고리 목록 가져오기
+  // 메인 카테고리 목록 가져오기 TODO 아직 select에 적용 안함
   useEffect(() => {
-    const
+
     (async () => {
       const getMainCategories = await getAllMainCategory(null);
       setMainCategory(getMainCategories);
@@ -106,14 +115,14 @@ export default function WriteBoard(props: TokenProp) {
 
 
   /**
-   *  TODO : 메인 카테고리 선택에 따른 mid 카테고리 목록 가져오기
+   *  TODO : 메인 카테고리 선택에 따른 mid 카테고리 목록 가져오기 TODO
    * */
   useEffect(() => {
     (async () => {
-      const getMidCategories = await getAllMidCategory(null, mainCatName);
+      const getMidCategories = await getMidCategory(null, selectMainCate.id);
       setMidCategory(getMidCategories);
     })();
-  }, [mainCategory]);
+  }, [selectMainCate]);
 
   return (
     <>
