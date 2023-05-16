@@ -81,8 +81,10 @@ export default function WriteBoard(props: TokenProp) {
     }
     // 내용이 문제가 없으면
     // TODO: 서버에 전송
+
+    // 임시로 토큰 막음
     try {
-      await createBoard(props.token, {
+      await createBoard(props?.token, {
         title,
         content: markdown,
         mainCategoryName: mainCatName,
@@ -93,11 +95,25 @@ export default function WriteBoard(props: TokenProp) {
     }
   };
 
+  // 메인 카테고리 목록 가져오기
   useEffect(() => {
+    const
     (async () => {
-      const categories = await getAllMainCategory(null);
+      const getMainCategories = await getAllMainCategory(null);
+      setMainCategory(getMainCategories);
     })();
   });
+
+
+  /**
+   *  TODO : 메인 카테고리 선택에 따른 mid 카테고리 목록 가져오기
+   * */
+  useEffect(() => {
+    (async () => {
+      const getMidCategories = await getAllMidCategory(null, mainCatName);
+      setMidCategory(getMidCategories);
+    })();
+  }, [mainCategory]);
 
   return (
     <>
