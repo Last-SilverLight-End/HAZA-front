@@ -1,4 +1,5 @@
-import { BoardData, MainCategory } from './boardRequest';
+import { BoardData} from './boardRequest';
+import { MainCategory, MidCategory } from './categoryRequest';
 
 /**
  * 임시 게시글 데이터

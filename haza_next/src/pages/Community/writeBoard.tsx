@@ -13,8 +13,9 @@ const Editor = dynamic(() => import('@/components/Editor'), { ssr: false });
 
 import { useEffect, useRef, useState } from 'react';
 import { ContentFrame } from '@/components/generic/ContentFrame';
-import { createBoard, getAllMainCategory, MainCategory, MidCategory } from '@/libs/backend/boardRequest';
+import { createBoard} from '@/libs/backend/boardRequest';
 import { exampleMainCategoryData, exampleMidCategoryData } from '@/libs/backend/exampledata';
+import { MainCategory, MidCategory, getAllMainCategory } from '@/libs/backend/categoryRequest';
 
 /**
  * 글쓰기 페이지

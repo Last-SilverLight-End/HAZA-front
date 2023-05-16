@@ -4,9 +4,10 @@ import { Stack, Button } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { TokenProp } from '@/libs/oAuth';
 import { ContentFrame } from '@/components/generic/ContentFrame';
-import { getMainCategoryBoardList, BoardData, MainCategory, getAllMainCategory } from '@/libs/backend/boardRequest';
+import { getMainCategoryBoardList, BoardData} from '@/libs/backend/boardRequest';
 import { BoardLine } from '@/components/community/BoardLine';
 import { exampleBoardData, exampleMainCategoryData } from '@/libs/backend/exampledata';
+import { MainCategory, getAllMainCategory } from '@/libs/backend/categoryRequest';
 
 export default function CommunityHome({ token }: TokenProp) {
   const [boardData, setBoardData] = useState<Array<BoardData>>(exampleBoardData);
