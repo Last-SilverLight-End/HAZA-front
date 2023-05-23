@@ -13,9 +13,9 @@ const Editor = dynamic(() => import('@/components/Editor'), { ssr: false });
 
 import { useEffect, useRef, useState } from 'react';
 import { ContentFrame } from '@/components/generic/ContentFrame';
-import { createBoard} from '@/libs/backend/boardRequest';
+import { createBoard } from '@/libs/backend/boardRequest';
 import { exampleMainCategoryData, exampleMidCategoryData } from '@/libs/backend/exampledata';
-import { MainCategory, MidCategory, getAllMainCategory, getMidCategory } from '@/libs/backend/categoryRequest';
+import { MainCategory, MidCategory, getAllMainCategory, getSpecificAllMidCategory } from '@/libs/backend/categoryRequest';
 
 /**
  * 글쓰기 페이지
@@ -27,20 +27,18 @@ export default function WriteBoard(props: TokenProp) {
   // 실제 Markdown 데이터
   const [markdown, setMarkdown] = useState("");
   const [title, setTitle] = useState("");
-
   const [selectMainCate, setSelectMainCate] = useState<MainCategory>({
     id: 0,
     name: "선택하세요",
   });
 
   const [selectMidCate, setSelectMidCate] = useState<MidCategory>({
-    id : 0,
-    name : "선택하세요",
-    mainCategoryId : 0,
-    });
+    id: 0,
+    name: "선택하세요",
+    mainCategoryId: 0,
+  });
   const [mainCategory, setMainCategory] = useState<MainCategory[]>(exampleMainCategoryData);
   const [midCategory, setMidCategory] = useState<MidCategory[]>(exampleMidCategoryData);
-
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
@@ -104,9 +102,8 @@ export default function WriteBoard(props: TokenProp) {
     }
   };
 
-  // 메인 카테고리 목록 가져오기 TODO 아직 select에 적용 안함
+  // 메인 카테고리 목록 가져오기
   useEffect(() => {
-
     (async () => {
       const getMainCategories = await getAllMainCategory(null);
       setMainCategory(getMainCategories);
@@ -115,11 +112,11 @@ export default function WriteBoard(props: TokenProp) {
 
 
   /**
-   *  TODO : 메인 카테고리 선택에 따른 mid 카테고리 목록 가져오기 TODO
+   *  TODO : 메인 카테고리 선택에 따른 mid 카테고리 목록 가져오기
    * */
   useEffect(() => {
     (async () => {
-      const getMidCategories = await getMidCategory(null, selectMainCate.id);
+      const getMidCategories = await getSpecificAllMidCategory(null, selectMainCate.id);
       setMidCategory(getMidCategories);
     })();
   }, [selectMainCate]);
@@ -136,8 +133,8 @@ export default function WriteBoard(props: TokenProp) {
             <GridItem>
               <FormLabel>대분류</FormLabel>
               <Select placeholder="골라골라">
-                <option value="option1">공지사항</option>
-                <option value="option2">자유게시판</option>
+                <option value="option1">메인카테고리</option>
+                <option value="option2">미드카테고리</option>
               </Select>
               <FormHelperText>1차 분류 입니다.</FormHelperText>
             </GridItem>

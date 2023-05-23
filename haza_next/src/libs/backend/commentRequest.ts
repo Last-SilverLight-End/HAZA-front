@@ -10,7 +10,7 @@ export interface CommentData {
   /**
    * 댓글 id
    */
-  id : number;
+  id: number;
   /**
    * 유저 id
    */
@@ -18,11 +18,11 @@ export interface CommentData {
   /**
    * 유저 이름
    */
-  userName : string;
+  userName: string;
   /**
    * 유저 이메일
    */
-  userEmail : string;
+  userEmail: string;
   /**
    * 보드 id
    */
@@ -39,15 +39,25 @@ export interface CommentData {
    * 댓글 수정 날짜
    */
   modifiedDate: Date;
+  /**
+  * 메인 카테고리 id 
+  */
+  mainCategoryId: number;
+  /**
+   * 미드 카테고리 id
+   */
+  midCategoryId: number;
 
 }
+
+
 
 /**
  * 특정 보드 id 의 댓글들을 받아 옵니다.
  */
 export async function getComments(token: string | null, body: CommentData) {
   const data = await request<Record<string, ValueType>>({
-    route : `api/commnets?board_id=${body.boardId}`,
+    route: `api/commnets?board_id=${body.boardId}`,
     token,
     method: "GET",
     //body.
@@ -60,17 +70,19 @@ export async function getComments(token: string | null, body: CommentData) {
  *서버에서 응답한 comment 데이터를 내부 comment 데이터로 변환 합니다.
  */
 
-export function convertCommentToClient(data : Record<string,ValueType>) : CommentData{
+export function convertCommentToClient(data: Record<string, ValueType>): CommentData {
 
   console.log(data);
-  return{
-    id :data.id as number,
+  return {
+    id: data.id as number,
     userId: data.userId as number,
-    userName : data.userName as string,
-    userEmail : data.userEmail as string,
+    userName: data.userName as string,
+    userEmail: data.userEmail as string,
     boardId: data.boardId as number,
     content: data.content as string,
     createdDate: sqlDateToDate(data.createdDate as string),
     modifiedDate: sqlDateToDate(data.modifiedDate as string),
+    mainCategoryId: data.mainCategoryId as number,
+    midCategoryId: data.midCategoryId as number
   }
 }
