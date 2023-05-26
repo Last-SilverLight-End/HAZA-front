@@ -170,26 +170,31 @@ export default function WriteBoard(props: TokenProp) {
           <Textarea value={markdown} readOnly={true} />
         </FormControl>
       </ContentFrame>
-      {/* @TODO 토스트 정상적으로 작동되는지 진행중
-      <Button
-        onClick={() =>
-          statusToast({
-            position : 'bottom-left',
-
-          })
-          toast({
-            position: 'bottom-left',
+      {/* @TODO 토스트 정상적으로 작동되는지 진행중      */}
+      <Box>
+        <Button
+          onClick={() =>
+            statusToast({
+              position: 'bottom-left',
+              title: "잘 되는지 테스팅",
+              description: 'test',
+              status: 'success'
+            })
+          }
+        >
+          Show Toast
+        </Button >
+      </Box>
+      {/*toast({
+        position: 'bottom-left',
             render: () => (
-              <Box color='white' p={3} bg='blue.500'>
-                Hello World
-              </Box>
-            ),
+      <Box color='white' p={3} bg='blue.500'>
+        Hello World
+      </Box>
+      ),
           })
-        }
-      >
-        Show Toast
-      </Button>
-      */}
+        }*/}
+
       <Footer />
     </>
   );
