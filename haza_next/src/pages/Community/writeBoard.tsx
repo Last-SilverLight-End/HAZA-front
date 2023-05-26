@@ -3,7 +3,7 @@ import { Header } from '@/components/generic/Header';
 import { TokenProp } from '@/libs/oAuth';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import type { Editor as ToastEditor } from '@toast-ui/react-editor';
-import { Button, Flex, Grid, GridItem, Select, Textarea, Skeleton, FormControl, FormLabel, FormHelperText, Input, Spacer, useToast } from '@chakra-ui/react';
+import { Button, Flex, Grid, GridItem, Select, Textarea, Skeleton, FormControl, FormLabel, FormHelperText, Input, Spacer, useToast, Box } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 
 /**
@@ -16,6 +16,7 @@ import { ContentFrame } from '@/components/generic/ContentFrame';
 import { createBoard } from '@/libs/backend/boardRequest';
 import { exampleMainCategoryData, exampleMidCategoryData } from '@/libs/backend/exampledata';
 import { MainCategory, MidCategory, getAllMainCategory, getSpecificAllMidCategory } from '@/libs/backend/categoryRequest';
+import { statusToast } from '@/components/Toast';
 
 /**
  * 글쓰기 페이지
@@ -169,6 +170,26 @@ export default function WriteBoard(props: TokenProp) {
           <Textarea value={markdown} readOnly={true} />
         </FormControl>
       </ContentFrame>
+      {/* @TODO 토스트 정상적으로 작동되는지 진행중
+      <Button
+        onClick={() =>
+          statusToast({
+            position : 'bottom-left',
+
+          })
+          toast({
+            position: 'bottom-left',
+            render: () => (
+              <Box color='white' p={3} bg='blue.500'>
+                Hello World
+              </Box>
+            ),
+          })
+        }
+      >
+        Show Toast
+      </Button>
+      */}
       <Footer />
     </>
   );

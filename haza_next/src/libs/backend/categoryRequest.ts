@@ -39,7 +39,7 @@ export async function getAllMainCategory(token: string | null) {
 /**
  * 특정 메인 카테고리 내 미드 카테고리 전체를 받아 옵니다.
  */
-export async function getAllMidCategory(token: string | null, mainCategoryId: number) {
+export async function getSpecificAllMidCategory(token: string | null, mainCategoryId: number) {
   const data = await request<Record<string, ValueType>>({
     route: `/api/boards?main=${mainCategoryId}`,
     token,
