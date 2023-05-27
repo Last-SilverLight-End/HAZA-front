@@ -41,7 +41,7 @@ export async function getAllMainCategory(token: string | null) {
  */
 export async function getSpecificAllMidCategory(token: string | null, mainCategoryId: number) {
   const data = await request<Record<string, ValueType>>({
-    route: `/api/boards?main=${mainCategoryId}`,
+    route: `/api/categories?mainCategoryId=${mainCategoryId}`,
     token,
     method: 'GET',
     //body,

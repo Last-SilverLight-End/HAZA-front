@@ -61,7 +61,7 @@ export interface NameKanban {
  */
 export async function getMainCategoryBoardList(token: string | null, mainCategoryId: IdType) {
   const data = await request<Record<string, ValueType>>({
-    route: `/api/boards?main_category_id=${mainCategoryId}`,
+    route: `/api/boards?mainCategoryId=${mainCategoryId}`,
     token,
     method: 'GET',
     // body,

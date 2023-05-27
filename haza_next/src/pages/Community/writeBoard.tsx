@@ -34,7 +34,7 @@ export default function WriteBoard(props: TokenProp) {
   });
 
   const [selectMidCate, setSelectMidCate] = useState<MidCategory>({
-    id: 0,
+    id: 1,
     name: "선택하세요",
     mainCategoryId: 0,
   });
@@ -109,7 +109,7 @@ export default function WriteBoard(props: TokenProp) {
       const getMainCategories = await getAllMainCategory(null);
       setMainCategory(getMainCategories);
     })();
-  });
+  },[]);
 
 
   /**
@@ -170,31 +170,6 @@ export default function WriteBoard(props: TokenProp) {
           <Textarea value={markdown} readOnly={true} />
         </FormControl>
       </ContentFrame>
-      {/* @TODO 토스트 정상적으로 작동되는지 진행중      */}
-      <Box>
-        <Button
-          onClick={() =>
-            statusToast({
-              position: 'bottom-left',
-              title: "잘 되는지 테스팅",
-              description: 'test',
-              status: 'success'
-            })
-          }
-        >
-          Show Toast
-        </Button >
-      </Box>
-      {/*toast({
-        position: 'bottom-left',
-            render: () => (
-      <Box color='white' p={3} bg='blue.500'>
-        Hello World
-      </Box>
-      ),
-          })
-        }*/}
-
       <Footer />
     </>
   );
