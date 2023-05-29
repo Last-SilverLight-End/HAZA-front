@@ -29,17 +29,17 @@ export default function WriteBoard(props: TokenProp) {
   const [markdown, setMarkdown] = useState("");
   const [title, setTitle] = useState("");
   const [selectMainCate, setSelectMainCate] = useState<MainCategory>({
-    id: 0,
+    id: 9999,
     name: "선택하세요",
   });
 
   const [selectMidCate, setSelectMidCate] = useState<MidCategory>({
-    id: 1,
+    id: 9999,
     name: "선택하세요",
-    mainCategoryId: 0,
+    mainCategoryId: 9999,
   });
-  const [mainCategory, setMainCategory] = useState<MainCategory[]>(exampleMainCategoryData);
-  const [midCategory, setMidCategory] = useState<MidCategory[]>(exampleMidCategoryData);
+  const [mainCategory, setMainCategory] = useState<Array<MainCategory>>(exampleMainCategoryData);
+  const [midCategory, setMidCategory] = useState<Array<MidCategory>>(exampleMidCategoryData);
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
@@ -106,21 +106,16 @@ export default function WriteBoard(props: TokenProp) {
   // 메인 카테고리 목록 가져오기
   useEffect(() => {
     (async () => {
-      const getMainCategories = await getAllMainCategory(null);
+      const getMainCategories = await getAllMainCategory(null,);
       setMainCategory(getMainCategories);
+      console.log(getMainCategories);
     })();
-  },[]);
+  }, []);
 
-
-  /**
-   *  TODO : 메인 카테고리 선택에 따른 mid 카테고리 목록 가져오기
-   * */
   useEffect(() => {
-    (async () => {
-      const getMidCategories = await getSpecificAllMidCategory(null, selectMainCate.id);
-      setMidCategory(getMidCategories);
-    })();
-  }, [selectMainCate]);
+
+  })
+
 
   return (
     <>
@@ -133,15 +128,23 @@ export default function WriteBoard(props: TokenProp) {
           <Grid templateColumns="repeat(2, 1fr)" gap={8}>
             <GridItem>
               <FormLabel>대분류</FormLabel>
-              <Select placeholder="골라골라">
-                <option value="option1">메인카테고리</option>
-                <option value="option2">미드카테고리</option>
+              <Select placeholder="골라골라" onChange={(ev) => {
+                const selectedOption = ev.target.options[ev.target.selectedIndex];
+                const selectedText = selectedOption.textContent;
+                console.log(selectedText);
+              }}>
+                {
+                  mainCategory.map((value, idx) => {
+                    console.log(idx, value);
+                    return (<option value={`value${idx}`}>{value.name}</option>)
+                  }
+                  )}
               </Select>
               <FormHelperText>1차 분류 입니다.</FormHelperText>
             </GridItem>
             <GridItem>
               <FormLabel>소분류</FormLabel>
-              <Select placeholder="돌림판">
+              <Select placeholder="돌림판" >
                 <option value="option1">달달소</option>
                 <option value="option2">쏘리글</option>
               </Select>

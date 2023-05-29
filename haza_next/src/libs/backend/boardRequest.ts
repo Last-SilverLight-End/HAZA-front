@@ -1,6 +1,5 @@
 import { IdType } from '../constants';
 import { forceId, sqlDateToDate, ValueType } from '../util';
-import { MainCategory } from './categoryRequest';
 import { request } from './request';
 
 /**
@@ -12,7 +11,11 @@ export interface BoardData extends RequiredBoardData {
    * 조회수
    */
   hit: number;
+  /**
+   * 생성 날짜
+   */
   createdDate: Date;
+
   modifiedDate: Date;
   /**
    * 사용자 이름
@@ -22,6 +25,10 @@ export interface BoardData extends RequiredBoardData {
    * 사용자 이메일
    */
   userEmail: string | null;
+  /**
+   * 사용자 id
+   */
+  userId: number;
 }
 
 /**
@@ -37,7 +44,35 @@ export interface RequiredBoardData {
   midCategoryId: IdType | null;
 }
 
-
+/**
+ * 댓글 데이터
+ */
+export interface CommentData {
+  /**
+   * 유저 id
+   */
+  userId: string;
+  /**
+   * 보드 id
+   */
+  boardId: number;
+  /**
+   * 댓글 내용
+   */
+  content: string;
+  /**
+   * 댓글 생성 날짜
+   */
+  createdDate: Date;
+  /**
+   * 댓글 수정 날짜
+   */
+  modifiedDate: Date;
+  /**
+   * 유저 이름 
+   */
+  userName: string | null;
+}
 
 /**
  * 게시글 생성 및 변경 응답
@@ -47,6 +82,8 @@ interface BoardModifyResult {
   modified: boolean;
 }
 
+
+
 /**
  * 개개인 칸반 카테고리 이름 정하기
  */
@@ -54,36 +91,19 @@ export interface NameKanban {
   title: string;
 }
 
-
-
 /**
- * 특정 카테고리 게시글 정보들을 가져옵니다.
+ * 특정 보드 id 의 댓글들을 받아 옵니다.
  */
-export async function getMainCategoryBoardList(token: string | null, mainCategoryId: IdType) {
+/*export async function getComments(token: string | null, body: CommentData) {
   const data = await request<Record<string, ValueType>>({
-    route: `/api/boards?mainCategoryId=${mainCategoryId}`,
+    route: `api/commnets?board_id=${body.boardId}`,
     token,
-    method: 'GET',
-    // body,
-  });
-  return data.map(convertBoardToClient);
-}
-
-/**
- * 특정 메인 카테고리를 받아 옵니다.
- */
-export async function getMainCategory(token: string, body: Required<MainCategory>): Promise<MainCategory> {
-  const data = await request<Record<string, ValueType>>({
-    route: `/api/boards?main=${body.name}`,
-    token,
-    method: 'GET',
-    body,
-  });
-  return {
-    id: body.id,
-    name: body.name,
-  };
-}
+    method: "GET",
+    //body.
+  })
+  console.log(data);
+  return data.map(convertCommentToClient);
+}*/
 /**
  * 로그인 구현 (아직 토큰 받아오는 상태를 완성하지 못함)
  */
@@ -145,7 +165,18 @@ export async function deleteBoard(token: string, boardId: IdType) {
   }
 }
 
-
+/**
+ * 특정 카테고리 게시글 정보들을 가져옵니다.
+ */
+export async function getMainCategoryBoardList(token: string | null, mainCategoryId: IdType) {
+  const data = await request<Record<string, ValueType>>({
+    route: `/api/boards?mainCategoryId=${mainCategoryId}`,
+    token,
+    method: 'GET',
+    // body,
+  });
+  return data.map(convertBoardToClient);
+}
 
 /**
  * 특정 게시글 정보를 가져옵니다.
@@ -187,9 +218,9 @@ export function convertBoardToClient(data: Record<string, ValueType>): BoardData
     userEmail: data.userEmail as string | null,
     mainCategoryId: data.mainCategoryId as number | null,
     midCategoryId: data.midCategoryId as number | null,
+    userId: data.usrId as number,
   }
 }
-
 
 /**
  * 클라이언트의 Board 데이터를 서버 Board 데이터로 변환합니다.
