@@ -29,20 +29,21 @@ export default function WriteBoard(props: TokenProp) {
   const [markdown, setMarkdown] = useState("");
   const [title, setTitle] = useState("");
   const [selectMainCate, setSelectMainCate] = useState<MainCategory>({
-    id: 9999,
-    name: "선택하세요",
+    id: 1,
+    name: "선택하세요" ,
   });
 
   const [selectMidCate, setSelectMidCate] = useState<MidCategory>({
-    id: 9999,
+    id: 1,
     name: "선택하세요",
-    mainCategoryId: 9999,
+    mainCategoryId: 1 ,
   });
   const [mainCategory, setMainCategory] = useState<Array<MainCategory>>(exampleMainCategoryData);
   const [midCategory, setMidCategory] = useState<Array<MidCategory>>(exampleMidCategoryData);
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
+
   const [isEditorLoaded, setIsEditorLoaded] = useState(false);
   const toast = useToast();
 
@@ -108,15 +109,33 @@ export default function WriteBoard(props: TokenProp) {
     (async () => {
       const getMainCategories = await getAllMainCategory(null,);
       setMainCategory(getMainCategories);
-      console.log(getMainCategories);
+      console.log("first",getMainCategories);
     })();
   }, []);
-
+  // TODO : 하나로 묶는 방안 생각
+  // TODO : 지금 서버에서
+  //org.apache.ibatis.exceptions.PersistenceException: 
+  //### Error querying database.  Cause: java.lang.NullPointerException: Cannot invoke "org.apache.ibatis.cache.impl.PerpetualCache.removeObject(Object)" because "this.localCache" is null
+  //### The error may exist in sql/mapper/category-mapper.xml
+  //### The error may involve category.getAllMainCategoryLists
+  //### The error occurred while handling results
+  //### SQL: select TB_BOARD_MAINCATEGORY.MAIN_CATE_NAME AS MAIN_CATE_NAME,            TB_BOARD_MAINCATEGORY.B_MAIN_CATE_ID AS B_MAIN_CATE_ID             from TB_BOARD_MAINCATEGORY;
+  //### Cause: java.lang.NullPointerException: Cannot invoke "org.apache.ibatis.cache.impl.PerpetualCache.removeObject(Object)" because "this.localCache" is null
+  // 오류 해결하기 
+  //Basic count is = 0
+  //mainCategoryId = 1
+  //midCategoryId = null 가 나왔을 때의 값 처리가 안됨
+  //show all MainCategory lists
+  //{midCategoryId=null, mainCategoryId=1}  
   useEffect(() => {
-
-  })
-
-
+    console.log("asdf");
+    (async () => {
+      console.log(selectMainCate);
+      const getMidCategories = await getSpecificAllMidCategory(null,selectMainCate.id);
+      setMidCategory(getMidCategories);
+      console.log("ddd",getMidCategories);
+    })();
+  },[selectMainCate]);
   return (
     <>
       <Header />
@@ -130,16 +149,28 @@ export default function WriteBoard(props: TokenProp) {
               <FormLabel>대분류</FormLabel>
               <Select placeholder="골라골라" onChange={(ev) => {
                 const selectedOption = ev.target.options[ev.target.selectedIndex];
+
                 const selectedText = selectedOption.textContent;
+                const selectedValue = Number(selectedOption.value);
+                console.log(selectedValue,typeof selectedValue);
                 console.log(selectedText);
+                /**
+                 * null 값 처리
+                 */
+                setSelectMainCate({id : selectedValue, name : selectedText ?? "nothing"});
+                //분명 마음이 아픈건 난데 웰케 형들이 더 아파 보이냐
+
               }}>
                 {
                   mainCategory.map((value, idx) => {
                     console.log(idx, value);
-                    return (<option value={`value${idx}`}>{value.name}</option>)
+                    return (<option key={idx} value={`${idx}`}>{value.name}</option>)
                   }
                   )}
               </Select>
+              {/*
+              * TODO : 1차 분류 되었으니 안에 options들을 나누어서 넣고 잘 되는지 확인할것
+              */}
               <FormHelperText>1차 분류 입니다.</FormHelperText>
             </GridItem>
             <GridItem>
