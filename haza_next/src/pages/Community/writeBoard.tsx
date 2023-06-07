@@ -30,13 +30,13 @@ export default function WriteBoard(props: TokenProp) {
   const [title, setTitle] = useState("");
   const [selectMainCate, setSelectMainCate] = useState<MainCategory>({
     id: 1,
-    name: "선택하세요" ,
+    name: "선택하세요",
   });
 
   const [selectMidCate, setSelectMidCate] = useState<MidCategory>({
     id: 1,
     name: "선택하세요",
-    mainCategoryId: 1 ,
+    mainCategoryId: 1,
   });
   const [mainCategory, setMainCategory] = useState<Array<MainCategory>>(exampleMainCategoryData);
   const [midCategory, setMidCategory] = useState<Array<MidCategory>>(exampleMidCategoryData);
@@ -109,7 +109,7 @@ export default function WriteBoard(props: TokenProp) {
     (async () => {
       const getMainCategories = await getAllMainCategory(null,);
       setMainCategory(getMainCategories);
-      console.log("first",getMainCategories);
+      console.log("first", getMainCategories);
     })();
   }, []);
   // TODO : 하나로 묶는 방안 생각
@@ -131,11 +131,11 @@ export default function WriteBoard(props: TokenProp) {
     console.log("asdf");
     (async () => {
       console.log(selectMainCate);
-      const getMidCategories = await getSpecificAllMidCategory(null,selectMainCate.id);
+      const getMidCategories = await getSpecificAllMidCategory(null, selectMainCate.id);
       setMidCategory(getMidCategories);
-      console.log("ddd",getMidCategories);
+      console.log("ddd", getMidCategories);
     })();
-  },[selectMainCate]);
+  }, [selectMainCate]);
   return (
     <>
       <Header />
@@ -152,12 +152,12 @@ export default function WriteBoard(props: TokenProp) {
 
                 const selectedText = selectedOption.textContent;
                 const selectedValue = Number(selectedOption.value);
-                console.log(selectedValue,typeof selectedValue);
+                console.log(selectedValue, typeof selectedValue);
                 console.log(selectedText);
                 /**
                  * null 값 처리
                  */
-                setSelectMainCate({id : selectedValue, name : selectedText ?? "nothing"});
+                setSelectMainCate({ id: selectedValue, name: selectedText ?? "nothing" });
                 //분명 마음이 아픈건 난데 웰케 형들이 더 아파 보이냐
 
               }}>
