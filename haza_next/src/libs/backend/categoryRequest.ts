@@ -55,9 +55,9 @@ export async function getSpecificAllMidCategory(token: string | null, mainCatego
  */
 
 export function convertMainCategoryToClient(data: Record<string, ValueType>): MainCategory {
-  //console.log(data);
-  //console.log(data.mainCategory_Id);
-  // console.log(data.name);
+  
+  console.log("allmainCategoryData",data,data.mainCategory_Id,data.name);
+
   return {
     id: forceId(data.mainCategoryId),
     name: data.name as string,
